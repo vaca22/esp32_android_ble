@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.vaca.esp32_android_ble.BleBean
 import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.BleViewAdapter
@@ -56,6 +57,13 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        binding.bleTable.layoutManager = GridLayoutManager(requireContext(), 2);
+        bleViewAdapter = BleViewAdapter(requireContext())
+        binding.bleTable.adapter = bleViewAdapter
+        bleViewAdapter.setClickListener(this)
+
+
+
         return binding.root
 
     }
@@ -74,7 +82,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
 
 
     override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice) {
-        if (!(name.contains("Checkme"))) return;
+
         var z: Int = 0;
         for (ble in bleList) run {
             if (ble.name == bluetoothDevice.name) {
