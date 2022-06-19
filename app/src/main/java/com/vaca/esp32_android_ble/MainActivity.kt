@@ -13,9 +13,11 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.vaca.esp32_android_ble.bean.HavePermission
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
+import com.vaca.esp32_android_ble.fragment.FirstFragment
 import org.greenrobot.eventbus.EventBus
 
 class MainActivity : AppCompatActivity() {
@@ -25,11 +27,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         val requestVoicePermission= registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION)!!
-            EventBus.getDefault().post(HavePermission(yes))
+            FirstFragment.gaga.postValue(yes)
         }
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -38,9 +42,8 @@ class MainActivity : AppCompatActivity() {
         ) {
             requestVoicePermission.launch( arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
         }else{
-            EventBus.getDefault().post(HavePermission(true))
+            FirstFragment.gaga.postValue(true)
         }
-
 
 
 
