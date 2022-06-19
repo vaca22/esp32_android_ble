@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val requestVoicePermission= registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION).toString()
+            val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION)!!
             EventBus.getDefault().post(HavePermission(yes))
         }
         if (ContextCompat.checkSelfPermission(
