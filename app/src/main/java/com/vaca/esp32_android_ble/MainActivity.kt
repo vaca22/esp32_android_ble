@@ -14,7 +14,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.vaca.esp32_android_ble.bean.HavePermission
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
+import org.greenrobot.eventbus.EventBus
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,18 +28,17 @@ class MainActivity : AppCompatActivity() {
         val requestVoicePermission= registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-            Log.e("fuck",it.get(Manifest.permission.ACCESS_FINE_LOCATION).toString())
-
+            val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION).toString()
+            EventBus.getDefault().post(HavePermission(yes))
         }
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-
             requestVoicePermission.launch( arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-
-
+        }else{
+            EventBus.getDefault().post(HavePermission(true))
         }
 
 
