@@ -96,7 +96,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
     }
 
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice?) {
-        TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
 }
