@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
 import org.json.JSONObject
+import java.lang.Exception
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -39,9 +41,15 @@ class SecondFragment : Fragment() {
             x.put("x5",binding.x5.text.toString())
 
 
+            val content=x.toString()
 
+            try {
+                BleServer.worker.sendCmd(content.toByteArray())
+            }catch (e:Exception){
 
-            Log.e("good","uyes"+x.toString())
+            }
+
+            Log.e("good","uyes"+content+"   "+content.length.toString())
         }
 
 
