@@ -61,7 +61,7 @@ class BleDataManager(context: Context) : BleManager(context) {
                 write_char!!.writeType = BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT
             }
             // Return true if all required services have been found
-            return true
+            return write_char != null && notify_char != null && notify && writeRequest
         }
 
         // If you have any optional services, allocate them here. Return true only if
