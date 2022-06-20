@@ -14,22 +14,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/x1"
             android:hint="wifi名称"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/x2"
             android:hint="wifi密码"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/x3"
             android:hint="用户名字"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/x4"
             android:hint="年龄"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/x5"
             android:hint="开机时间"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
