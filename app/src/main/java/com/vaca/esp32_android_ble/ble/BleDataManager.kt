@@ -28,7 +28,11 @@ class BleDataManager(context: Context) : BleManager(context) {
             .enqueue()
     }
 
-    override fun log(priority: Int, message: String) {}
+    override fun log(priority: Int, message: String) {
+
+    }
+
+
     interface OnNotifyListener {
         fun onNotify(device: BluetoothDevice?, data: Data?)
     }
@@ -74,14 +78,14 @@ class BleDataManager(context: Context) : BleManager(context) {
             beginAtomicRequestQueue()
                 .add(requestMtu(203) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
                     .with { _: BluetoothDevice?, mtu: Int ->
-                        log(
-                            Log.INFO,
+                       Log.e(
+                           " Log.INFO",
                             "MTU set to $mtu"
                         )
                     }
                     .fail { _: BluetoothDevice?, status: Int ->
-                        log(
-                            Log.WARN,
+                        Log.e(
+                           " Log.WARN",
                             "Requested MTU not supported: $status"
                         )
                     })
