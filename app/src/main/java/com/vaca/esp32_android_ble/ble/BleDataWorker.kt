@@ -83,30 +83,21 @@ class BleDataWorker {
         }
 
         override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
-
+                Log.e("gaga","disconnect");
         }
 
     }
 
 
     fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
-        try {
-            myBleDataManager?.disconnect()?.enqueue()
-            sleep(200)
-        } catch (ep: Exception) {
-
-        }
-
         bluetoothDevice?.let {
             myBleDataManager?.connect(it)
                 ?.useAutoConnect(false)
                 ?.timeout(10000)
-                ?.retry(500, 20)
+                ?.retry(10, 200)
                 ?.done {
                     Log.i("BLE", "连接成功了.>>.....>>>>")
-                    dataScope.launch {
-                        connectChannel.send("yes")
-                    }
+
 
                 }?.fail(object : FailCallback {
                     override fun onRequestFailed(device: BluetoothDevice, status: Int) {

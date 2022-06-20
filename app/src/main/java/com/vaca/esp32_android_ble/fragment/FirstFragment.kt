@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.bean.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
 import com.vaca.esp32_android_ble.adapter.BleViewAdapter
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 
 /**
@@ -77,6 +79,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
         if(name.contains("lgh")==false){
             return
         }
+
         var z: Int = 0;
         for (ble in bleList) run {
             if (ble.name == bluetoothDevice.name) {
@@ -90,6 +93,8 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
     }
 
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice?) {
+        scan.stop()
+        BleServer.worker.initWorker(MainApplication.application,bluetoothDevice)
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
