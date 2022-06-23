@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
 import com.vaca.esp32_android_ble.MainApplication
+import com.vaca.esp32_android_ble.fragment.SecondFragment
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +63,7 @@ class BleDataWorker {
 
     private val connectState = object : ConnectionObserver {
         override fun onDeviceConnecting(device: BluetoothDevice) {
-
+            SecondFragment.bleStu.postValue("蓝牙连接中")
         }
 
         override fun onDeviceConnected(device: BluetoothDevice) {
@@ -75,7 +76,7 @@ class BleDataWorker {
         }
 
         override fun onDeviceReady(device: BluetoothDevice) {
-
+            SecondFragment.bleStu.postValue("蓝牙已连接")
         }
 
         override fun onDeviceDisconnecting(device: BluetoothDevice) {
@@ -83,6 +84,7 @@ class BleDataWorker {
         }
 
         override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
+            SecondFragment.bleStu.postValue("蓝牙已断开")
                 Log.e("gaga","disconnect");
         }
 
@@ -92,7 +94,7 @@ class BleDataWorker {
     fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
         bluetoothDevice?.let {
             myBleDataManager?.connect(it)
-                ?.useAutoConnect(false)
+                ?.useAutoConnect(true)
                 ?.timeout(10000)
                 ?.retry(10, 200)
                 ?.done {

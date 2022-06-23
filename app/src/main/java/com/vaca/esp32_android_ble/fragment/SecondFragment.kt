@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
@@ -24,6 +25,16 @@ class SecondFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    companion object{
+        val bleStu=MutableLiveData<String>()
+    }
+
+    override fun onStop() {
+        BleServer.worker.disconnect()
+        super.onStop()
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +42,10 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
+
+        bleStu.observe(viewLifecycleOwner){
+            binding.bleStatus.text=it
+        }
 
         binding.upload.setOnClickListener {
             val x=JSONObject()
