@@ -106,7 +106,7 @@ class SecondFragment : Fragment() {
             val cc=ByteArray(2){
                 49.toByte()
             }
-            cc[1]=50.toByte();
+            cc[1]=49.toByte();
             try {
                 BleServer.worker.sendCmd(cc)
             }catch (e:Exception){
@@ -119,7 +119,7 @@ class SecondFragment : Fragment() {
             val cc=ByteArray(2){
                 49.toByte()
             }
-            cc[1]=49.toByte();
+            cc[1]=48.toByte();
             try {
                 BleServer.worker.sendCmd(cc)
             }catch (e:Exception){
