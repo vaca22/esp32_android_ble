@@ -48,25 +48,84 @@ class SecondFragment : Fragment() {
         }
 
         binding.upload.setOnClickListener {
-            val x=JSONObject()
-            x.put("x1",binding.x1.text.toString())
-//            x.put("x2",binding.x2.text.toString())
-//            x.put("x3",binding.x3.text.toString())
-//            x.put("x4",binding.x4.text.toString())
-//            x.put("x5",binding.x5.text.toString())
+           val aa=binding.x1.text.toString().toInt();
+            val cc=ByteArray(3){
+                50.toByte()
+            }
 
-
-            val content=x.toString()
+            cc[1]= (aa%256).toByte();
+            cc[2]= (aa/256).toByte();
 
             try {
-                BleServer.worker.sendCmd(content.toByteArray())
+                BleServer.worker.sendCmd(cc)
             }catch (e:Exception){
 
             }
 
-            Log.e("good","uyes"+content+"   "+content.length.toString())
         }
 
+        binding.open.setOnClickListener{
+            val cc=ByteArray(2){
+                48.toByte()
+            }
+            cc[1]=48.toByte();
+            try {
+                BleServer.worker.sendCmd(cc)
+            }catch (e:Exception){
+
+            }
+        }
+
+
+        binding.close.setOnClickListener{
+            val cc=ByteArray(2){
+                48.toByte()
+            }
+            cc[1]=49.toByte();
+            try {
+                BleServer.worker.sendCmd(cc)
+            }catch (e:Exception){
+
+            }
+        }
+
+        binding.pause.setOnClickListener{
+            val cc=ByteArray(2){
+                48.toByte()
+            }
+            cc[1]=50.toByte();
+            try {
+                BleServer.worker.sendCmd(cc)
+            }catch (e:Exception){
+
+            }
+        }
+
+
+        binding.mode1.setOnClickListener{
+            val cc=ByteArray(2){
+                49.toByte()
+            }
+            cc[1]=50.toByte();
+            try {
+                BleServer.worker.sendCmd(cc)
+            }catch (e:Exception){
+
+            }
+        }
+
+
+        binding.mode2.setOnClickListener {
+            val cc=ByteArray(2){
+                49.toByte()
+            }
+            cc[1]=49.toByte();
+            try {
+                BleServer.worker.sendCmd(cc)
+            }catch (e:Exception){
+
+            }
+        }
 
 
 
