@@ -50,10 +50,10 @@ class SecondFragment : Fragment() {
         binding.upload.setOnClickListener {
             val x=JSONObject()
             x.put("x1",binding.x1.text.toString())
-            x.put("x2",binding.x2.text.toString())
-            x.put("x3",binding.x3.text.toString())
-            x.put("x4",binding.x4.text.toString())
-            x.put("x5",binding.x5.text.toString())
+//            x.put("x2",binding.x2.text.toString())
+//            x.put("x3",binding.x3.text.toString())
+//            x.put("x4",binding.x4.text.toString())
+//            x.put("x5",binding.x5.text.toString())
 
 
             val content=x.toString()
