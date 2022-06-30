@@ -76,7 +76,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
 
 
     override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice) {
-        if(name.contains("lgh")==false){
+        if(name.contains("BT_123")==false){
             return
         }
 
