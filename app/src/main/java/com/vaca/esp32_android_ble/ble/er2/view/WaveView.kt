@@ -25,6 +25,7 @@ class WaveView : View {
     companion object {
         var disp = true
         val drawSize = 500
+        var deltaX=1f;
         val data = IntArray(drawSize) {
             0
         }
@@ -187,6 +188,7 @@ class WaveView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        deltaX=width.toFloat()/ drawSize;
         canvas.drawARGB(0, 0, 0, 0)
         if (disp) {
             var wavePath = Path()
@@ -204,14 +206,14 @@ class WaveView : View {
                     } else {
                         wavePath = Path()
                         wavePath.moveTo(
-                            2.56f * index.toFloat(),
+                            deltaX * index.toFloat(),
                             height / 2 - h.toFloat()
                         )
                         n1 = 1
                     }
                 } else {
                     wavePath.lineTo(
-                        2.56f * index.toFloat(),
+                        deltaX * index.toFloat(),
                         height / 2 - h.toFloat()
                     )
                 }
