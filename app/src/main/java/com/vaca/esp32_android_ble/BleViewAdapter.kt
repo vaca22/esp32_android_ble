@@ -45,14 +45,14 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
     }
 
     interface ItemClickListener {
-        fun onScanItemClick(bluetoothDevice: BluetoothDevice?)
+        fun onScanItemClick(bluetoothDevice: BluetoothDevice)
     }
 
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         var bleName: TextView = itemView.findViewById(R.id.ble_name)
         override fun onClick(view: View) {
-            if (mClickListener != null) mClickListener!!.onScanItemClick(mBleData[adapterPosition].bluetoothDevice)
+            if (mClickListener != null) mClickListener!!.onScanItemClick(mBleData[adapterPosition].bluetoothDevice!!)
         }
 
         init {

@@ -17,7 +17,6 @@ import com.viatom.littlePu.er2.bean.Er2Draw
 
 import kotlinx.coroutines.launch
 import java.util.*
-import java.util.Locale.filter
 
 
 class WaveView : View {
@@ -104,7 +103,7 @@ class WaveView : View {
 
 
 
-                    val x = BleServer.ER_2_BLE_DATA_WORKER.getData()
+                    val x = BleServer.er2_worker.getData()
 
                     x?.wave?.wFs?.let {
                         for (k in it) {

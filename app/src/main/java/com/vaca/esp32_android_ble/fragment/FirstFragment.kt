@@ -18,6 +18,7 @@ import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.BleViewAdapter
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.bean.HavePermission
+import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -98,8 +99,9 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
         }
     }
 
-    override fun onScanItemClick(bluetoothDevice: BluetoothDevice?) {
+    override fun onScanItemClick(bluetoothDevice: BluetoothDevice) {
         scan.stop()
+        BleServer.connect(bluetoothDevice)
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
