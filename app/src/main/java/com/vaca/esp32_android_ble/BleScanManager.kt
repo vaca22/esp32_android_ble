@@ -28,7 +28,10 @@ class BleScanManager {
             val device = result.device
             if (device?.name == null) return;
             scan?.apply {
-                scanReturn(device.name, device)
+                if(result.rssi>-60){
+                    scanReturn(device.name, device)
+                }
+
             }
             Log.i("scanned ble", " ${device.name}")
         }
