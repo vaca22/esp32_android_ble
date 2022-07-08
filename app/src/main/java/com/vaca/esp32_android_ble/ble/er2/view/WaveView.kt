@@ -23,7 +23,7 @@ import java.util.*
 class WaveView : View {
 
     companion object {
-        var disp = false
+        var disp = true
         val drawSize = 500
         val data = IntArray(drawSize) {
             0
@@ -83,6 +83,7 @@ class WaveView : View {
                     } while (gIndex < 4);
                     gIndex = 0;
                     poss(Er2Draw(g))
+                    BleServer.er2Graph.postValue(true)
                 } catch (e: java.lang.Exception) {
                     BleServer.waveDataX.clear()
                     gIndex = 0;

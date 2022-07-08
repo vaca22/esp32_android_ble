@@ -1,6 +1,7 @@
 package com.vaca.esp32_android_ble.ble
 
 import android.bluetooth.BluetoothDevice
+import androidx.lifecycle.MutableLiveData
 import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
@@ -19,7 +20,7 @@ object BleServer {
 
     var drawTask: WaveView.Companion.DrawTask? = null
     var rtDataTask: WaveView.Companion.RtDataTask? = null
-
+    val er2Graph = MutableLiveData<Boolean>()
 
    fun connect(b: BluetoothDevice){
        er2_worker.initWorker(MainApplication.application,b)

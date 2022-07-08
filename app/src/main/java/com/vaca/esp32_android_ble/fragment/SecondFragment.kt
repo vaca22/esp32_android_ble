@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
 import com.viatom.littlePu.er2.view.WaveView
 import java.util.*
@@ -35,6 +36,11 @@ class SecondFragment : Fragment() {
         BleServer.rtDataTask = WaveView.Companion.RtDataTask()
         Timer().schedule(BleServer.rtDataTask, Date(), 500)
 
+        BleServer.drawTask = WaveView.Companion.DrawTask()
+        Timer().schedule(BleServer.drawTask, Date(), 32)
+        er2Graph.observe(viewLifecycleOwner, {
+            binding.waveView.invalidate()
+        })
         return binding.root
 
     }
@@ -42,9 +48,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
+
     }
 
     override fun onDestroyView() {
