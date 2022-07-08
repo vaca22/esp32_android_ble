@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 
@@ -102,28 +103,21 @@ class WaveView : View {
                 BleServer.dataScope.launch {
 
 
-
                     val x = BleServer.er2_worker.getData()
 
                     x?.wave?.wFs?.let {
                         for (k in it) {
-                            val doubleArray = doubleArrayOf(k.toDouble())
-                            doubleArray?.let { ga ->
-                                if (ga.isNotEmpty()) {
 
-                                    for (j in ga) {
-                                        val xcv = j.toFloat()
-                                        if (xcv > 2.2f) {
-                                            BleServer.waveDataX.offer(2.2f)
-                                        } else if (xcv < -2.2f) {
-                                            BleServer.waveDataX.offer(-2.2f)
-                                        } else {
-                                            BleServer.waveDataX.offer(xcv)
-                                        }
-
-                                    }
-                                }
+                            val xcv = k.toFloat()
+                            Log.e("fuck",xcv.toString())
+                            if (xcv > 2.2f) {
+                                BleServer.waveDataX.offer(2.2f)
+                            } else if (xcv < -2.2f) {
+                                BleServer.waveDataX.offer(-2.2f)
+                            } else {
+                                BleServer.waveDataX.offer(xcv)
                             }
+
                         }
                     }
 

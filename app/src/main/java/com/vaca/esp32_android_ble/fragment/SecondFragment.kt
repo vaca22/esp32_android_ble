@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
+import com.viatom.littlePu.er2.view.WaveView
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -26,6 +29,12 @@ class SecondFragment : Fragment() {
     ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
+
+
+        BleServer.waveDataX.clear()
+        BleServer.rtDataTask = WaveView.Companion.RtDataTask()
+        Timer().schedule(BleServer.rtDataTask, Date(), 500)
+
         return binding.root
 
     }

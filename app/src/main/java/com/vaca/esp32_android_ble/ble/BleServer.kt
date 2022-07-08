@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice
 import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
+import com.viatom.littlePu.er2.view.WaveView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.util.*
@@ -15,6 +16,9 @@ object BleServer {
     var er2ConnectFlag = false
     val waveDataX = LinkedList<Float>()
 
+
+    var drawTask: WaveView.Companion.DrawTask? = null
+    var rtDataTask: WaveView.Companion.RtDataTask? = null
 
 
    fun connect(b: BluetoothDevice){
