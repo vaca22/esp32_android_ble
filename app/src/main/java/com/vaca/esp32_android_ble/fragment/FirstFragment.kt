@@ -82,6 +82,9 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
 
 
     override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice) {
+        if(bluetoothDevice.name.startsWith("DuoEK")==false){
+            return
+        }
 
         var z: Int = 0;
         for (ble in bleList) run {

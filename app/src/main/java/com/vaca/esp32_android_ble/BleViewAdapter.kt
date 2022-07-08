@@ -31,7 +31,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
 
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?) {
         mBleData.add(BleBean(name!!, bluetoothDevice!!))
-        notifyDataSetChanged()
+        notifyItemChanged(mBleData.size-1)
     }
 
     // total number of cells
