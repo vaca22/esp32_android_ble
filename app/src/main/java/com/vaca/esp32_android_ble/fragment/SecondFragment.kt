@@ -39,16 +39,14 @@ class SecondFragment : Fragment() {
 //        BleServer.rtDataTask = WaveView.Companion.RtDataTask()
 //        Timer().schedule(BleServer.rtDataTask, Date(), 500)
 
-        BleServer.drawTask = WaveView.Companion.DrawTask()
-        Timer().schedule(BleServer.drawTask, Date(), 32)
+//        BleServer.drawTask = WaveView.Companion.DrawTask()
+//        Timer().schedule(BleServer.drawTask, Date(), 32)
         er2Graph.observe(viewLifecycleOwner, {
             binding.waveView.invalidate()
         })
 
         binding.ga.setOnClickListener {
-            val gax= byteArrayOf(79,75,120,79,75,120)
-           // Log.e("gaga",gax.size.toString())
-            BleServer.er2_worker.sendCmd(gax)
+
         }
         return binding.root
 

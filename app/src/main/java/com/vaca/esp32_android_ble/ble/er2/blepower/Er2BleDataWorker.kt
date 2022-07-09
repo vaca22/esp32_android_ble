@@ -4,50 +4,21 @@ package com.vaca.esp32_android_ble.ble.er2.blepower
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
-
-
-import com.vaca.esp32_android_ble.ble.BleServer
-
 import com.vaca.esp32_android_ble.MainApplication
-
-
-
-
+import com.vaca.esp32_android_ble.ble.BleServer
 import com.viatom.littlePu.er2.blepower.NotifyListener
-
-
-import com.vaca.esp32_android_ble.ble.er2.blething.Er2BleResponse
-
-
-import com.viatom.littlePu.utils.toUInt
-import com.viatom.littlePu.utils.unsigned
-
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withTimeoutOrNull
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
+import java.lang.Exception
 import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
-import kotlin.experimental.inv
+import java.util.*
 
 
 class Er2BleDataWorker {
-
-
     private var myEr2BleDataManager: Er2BleDataManagerER2? = null
-    private val dataScope = CoroutineScope(Dispatchers.IO)
-    private val mutex = Mutex()
-
-
-
-
+    private var pool: ByteArray? = null
 
     fun byteArray2String(byteArray: ByteArray): String {
         var fuc = ""
@@ -57,19 +28,90 @@ class Er2BleDataWorker {
         }
         return fuc
     }
+
+
+    data class ReceiveData(val n1: Double, val n2: Double)
+
+    val waveData = LinkedList<Double>()
+
+
     private val comeData = object : NotifyListener {
         override fun onNotify(device: BluetoothDevice, data: Data) {
             data.value?.run {
 
-                val a= String(this, Charset.forName("gb2312"));
-                Log.e("bleReceive",a)
+                val a = String(this, Charset.forName("gb2312"));
+
+                if (a.contains("请输入OKx")) {
+                    BleServer.er2_worker.sendCmd("OKx".toByteArray())
+                } else if (a.contains("请输入RE基准电压")) {
+                    BleServer.er2_worker.sendCmd("600x".toByteArray())
+                } else if (a.contains("请输入起始电压")) {
+                    BleServer.er2_worker.sendCmd("-200x".toByteArray())
+                } else if (a.contains("请输入终止电压")) {
+                    BleServer.er2_worker.sendCmd("600x".toByteArray())
+                } else if (a.contains("请输入阶梯步进")) {
+                    BleServer.er2_worker.sendCmd("5x".toByteArray())
+                } else if (a.contains("请输入脉冲电压")) {
+                    BleServer.er2_worker.sendCmd("50x".toByteArray())
+                } else if (a.contains("请输入周期时间")) {
+                    BleServer.er2_worker.sendCmd("100x".toByteArray())
+                } else if (a.contains("参数设置完成")) {
+                    Log.e("gaga", "done")
+                    waveData.clear()
+                } else {
+                    pool = com.viatom.littlePu.utils.add(pool, this)
+                     Log.e("gagax",a)
+                    pool?.apply {
+                        pool = handleDataPool(pool)
+                    }
+                }
+
+
             }
         }
 
     }
 
 
-    var first=true
+    private fun handleDataPool(bytes: ByteArray?): ByteArray? {
+
+        if (bytes == null) {
+            return null
+        }
+        var bytesLeft = bytes
+        if (bytes.size == 0) {
+            return bytes
+        }
+
+
+        var hasA = true
+        while (hasA){
+            hasA=false
+            for (k in bytesLeft!!.indices) {
+                if ((bytesLeft[k] == 0x20.toByte()).or(bytesLeft!![k] == 0x0A.toByte())) {
+                    try {
+                        waveData.add(String(bytesLeft.copyOfRange(0,k)).toDouble())
+                    }catch (e:Exception){
+                        return null
+                    }
+
+                    if(k+1>=bytesLeft.size){
+                        bytesLeft=null
+                        hasA=false
+                    }else{
+                        bytesLeft=bytesLeft.copyOfRange(k+1,bytesLeft.size)
+                        hasA=true
+                    }
+                    break;
+                }
+            }
+        }
+
+
+
+
+        return bytesLeft
+    }
 
     private val connectState = object : ConnectionObserver {
         override fun onDeviceConnecting(device: BluetoothDevice) {
@@ -88,7 +130,6 @@ class Er2BleDataWorker {
 
             Log.e("dada1", "dada6")
             BleServer.er2ConnectFlag = false
-
 
 
         }
@@ -113,10 +154,7 @@ class Er2BleDataWorker {
     }
 
 
-
-
-
-     fun sendCmd(bs: ByteArray) {
+    fun sendCmd(bs: ByteArray) {
         myEr2BleDataManager?.sendCmd(bs)
     }
 
@@ -162,10 +200,6 @@ class Er2BleDataWorker {
         myEr2BleDataManager?.disconnect()?.enqueue()
         BleServer.er2ConnectFlag = false
     }
-
-
-
-
 
 
 }
