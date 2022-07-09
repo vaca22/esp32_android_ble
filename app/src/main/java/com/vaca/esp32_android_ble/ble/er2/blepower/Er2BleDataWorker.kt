@@ -90,8 +90,6 @@ class Er2BleDataWorker {
                 val a= String(this, Charset.forName("gb2312"));
                 Log.e("bleReceive",a)
             }
-
-
         }
 
     }
