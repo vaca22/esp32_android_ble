@@ -23,6 +23,7 @@ import com.viatom.littlePu.er2.blething.Er2Formatter
 
 
 import com.viatom.littlePu.utils.toUInt
+import com.viatom.littlePu.utils.unsigned
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,16 +84,20 @@ class Er2BleDataWorker {
         var progress: Int = 0,
         var success: Boolean = false,
     )
-
+    fun byteArray2String(byteArray: ByteArray): String {
+        var fuc = ""
+        for (b in byteArray) {
+            val st = String.format("%02X", b)
+            fuc += ("$st  ");
+        }
+        return fuc
+    }
     private val comeData = object : NotifyListener {
         override fun onNotify(device: BluetoothDevice, data: Data) {
             data.value?.run {
+
                 val a= String(this, Charset.forName("gb2312"));
                 Log.e("bleReceive",a)
-                if(first){
-                    first=false;
-                    sendCmd("OKx".toByteArray())
-                }
             }
         }
 
@@ -143,40 +148,6 @@ class Er2BleDataWorker {
     }
 
 
-    private fun handleDataPool(bytes: ByteArray?): ByteArray? {
-        val bytesLeft: ByteArray? = bytes
-
-        if (bytes == null || bytes.size < 8) {
-            return bytes
-        }
-        loop@ for (i in 0 until bytes.size - 7) {
-            if (bytes[i] != 0xA5.toByte() || bytes[i + 1] != bytes[i + 2].inv()) {
-                continue@loop
-            }
-
-            // need content length
-            val len = toUInt(bytes.copyOfRange(i + 5, i + 7))
-            if (i + 8 + len > bytes.size) {
-                continue@loop
-            }
-
-            val temp: ByteArray = bytes.copyOfRange(i, i + 8 + len)
-            if (temp.last() == CRCUtils.calCRC8(temp)) {
-
-                val bleResponse = Er2BleResponse.Er2Response(temp)
-                onResponseReceived(bleResponse)
-                val tempBytes: ByteArray? =
-                    if (i + 8 + len == bytes.size) null else bytes.copyOfRange(
-                        i + 8 + len,
-                        bytes.size
-                    )
-
-                return handleDataPool(tempBytes)
-            }
-        }
-
-        return bytesLeft
-    }
 
 
     private fun onResponseReceived(response: Er2BleResponse.Er2Response) {
@@ -251,7 +222,7 @@ class Er2BleDataWorker {
     }
 
 
-    private fun sendCmd(bs: ByteArray) {
+     fun sendCmd(bs: ByteArray) {
         myEr2BleDataManager?.sendCmd(bs)
     }
 

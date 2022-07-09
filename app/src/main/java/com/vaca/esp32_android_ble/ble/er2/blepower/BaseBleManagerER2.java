@@ -65,12 +65,11 @@ public abstract class BaseBleManagerER2 extends BleManager {
     public abstract void initReqQueue();
 
     public void sendCmd(byte[] bytes) {
-       // LepuBleLog.d("BaseBleManagerER2 send: " + ByteArrayKt.bytesToHex(bytes));
         try {
             writeCharacteristic(write_char, bytes,BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE)
                     .split()
                     .done(device -> {
-//                    LogUtils.d(device.getName() + " send: " + ByteArrayKt.bytesToHex(bytes));
+                    Log.e("fuck",device.getName() + " send: ");
                     })
                     .enqueue();
         } catch (Exception e) {

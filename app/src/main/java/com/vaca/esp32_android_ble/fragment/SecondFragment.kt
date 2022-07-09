@@ -1,6 +1,7 @@
 package com.vaca.esp32_android_ble.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
 import com.viatom.littlePu.er2.view.WaveView
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 /**
@@ -33,14 +36,20 @@ class SecondFragment : Fragment() {
 
 
         BleServer.waveDataX.clear()
-        BleServer.rtDataTask = WaveView.Companion.RtDataTask()
-        Timer().schedule(BleServer.rtDataTask, Date(), 500)
+//        BleServer.rtDataTask = WaveView.Companion.RtDataTask()
+//        Timer().schedule(BleServer.rtDataTask, Date(), 500)
 
         BleServer.drawTask = WaveView.Companion.DrawTask()
         Timer().schedule(BleServer.drawTask, Date(), 32)
         er2Graph.observe(viewLifecycleOwner, {
             binding.waveView.invalidate()
         })
+
+        binding.ga.setOnClickListener {
+            val gax= byteArrayOf(79,75,120,79,75,120)
+           // Log.e("gaga",gax.size.toString())
+            BleServer.er2_worker.sendCmd(gax)
+        }
         return binding.root
 
     }
@@ -54,5 +63,9 @@ class SecondFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun fuck(view: View) {
+
     }
 }
