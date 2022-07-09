@@ -95,38 +95,7 @@ class WaveView : View {
         }
 
 
-        class RtDataTask() : TimerTask() {
-            override fun run() {
-                if (!BleServer.er2ConnectFlag) {
-                    return
-                }
 
-
-                BleServer.dataScope.launch {
-
-
-                    val x = BleServer.er2_worker.getData()
-
-                    x?.wave?.wFs?.let {
-                        for (k in it) {
-
-                            val xcv = k.toFloat()
-
-                            if (xcv > 2.2f) {
-                                BleServer.waveDataX.offer(2.2f)
-                            } else if (xcv < -2.2f) {
-                                BleServer.waveDataX.offer(-2.2f)
-                            } else {
-                                BleServer.waveDataX.offer(xcv)
-                            }
-
-                        }
-                    }
-
-
-                }
-            }
-        }
 
 
     }

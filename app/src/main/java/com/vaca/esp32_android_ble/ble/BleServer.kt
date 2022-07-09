@@ -19,7 +19,7 @@ object BleServer {
 
 
     var drawTask: WaveView.Companion.DrawTask? = null
-    var rtDataTask: WaveView.Companion.RtDataTask? = null
+
     val er2Graph = MutableLiveData<Boolean>()
 
    fun connect(b: BluetoothDevice){
