@@ -17,7 +17,6 @@ import com.viatom.littlePu.er2.blepower.NotifyListener
 
 
 import com.vaca.esp32_android_ble.ble.er2.blething.Er2BleResponse
-import com.viatom.littlePu.er2.blething.Er2Formatter
 
 
 import com.viatom.littlePu.utils.toUInt
@@ -40,27 +39,12 @@ import kotlin.experimental.inv
 
 
 class Er2BleDataWorker {
-    private var pool: ByteArray? = null
-    private val fileChannel = Channel<Int>(Channel.CONFLATED)
-    private val RtChannel = Channel<Er2BleResponse.RtData>(Channel.CONFLATED)
-    private val DeviceInfoChannel = Channel<Er2Formatter.Er2DeviceInfo>(Channel.CONFLATED)
-    private var fileDataChannel = Channel<ByteArray>(Channel.CONFLATED)
 
-    private var deviceParaChannel = Channel<ByteArray>(Channel.CONFLATED)
-
-    private var commonChannel = Channel<Int>(Channel.CONFLATED)
 
     private var myEr2BleDataManager: Er2BleDataManagerER2? = null
     private val dataScope = CoroutineScope(Dispatchers.IO)
     private val mutex = Mutex()
 
-
-    var pkgTotal = 0;
-    var currentPkg = 0;
-    var fileData: ByteArray? = null
-    var currentFileName = ""
-    var result = 1;
-    var currentFileSize = 0
 
 
 
