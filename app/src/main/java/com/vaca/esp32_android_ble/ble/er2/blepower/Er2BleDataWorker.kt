@@ -12,7 +12,7 @@ import com.vaca.esp32_android_ble.MainApplication
 
 
 
-import com.viatom.littlePu.er2.bean.FileBean
+
 import com.viatom.littlePu.er2.blepower.NotifyListener
 
 

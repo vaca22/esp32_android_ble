@@ -17,7 +17,7 @@ import com.vaca.esp32_android_ble.BleBean
 import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.BleViewAdapter
 import com.vaca.esp32_android_ble.R
-import com.vaca.esp32_android_ble.bean.HavePermission
+
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 import org.greenrobot.eventbus.EventBus

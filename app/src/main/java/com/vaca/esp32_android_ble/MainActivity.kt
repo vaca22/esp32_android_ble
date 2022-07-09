@@ -15,7 +15,7 @@ import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import com.vaca.esp32_android_ble.bean.HavePermission
+
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
 import com.vaca.esp32_android_ble.fragment.FirstFragment
 import org.greenrobot.eventbus.EventBus
