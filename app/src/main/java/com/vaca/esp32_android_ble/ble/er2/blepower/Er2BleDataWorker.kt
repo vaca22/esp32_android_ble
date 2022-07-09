@@ -66,6 +66,12 @@ class Er2BleDataWorker {
                     }
                 }
 
+                if(a.contains("本次SWV扫描结束")){
+                    for(k in waveData){
+                        Log.e("ghgh",k.toString())
+                    }
+                }
+
 
             }
         }
