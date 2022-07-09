@@ -116,15 +116,12 @@ public abstract class BaseBleManagerER2 extends BleManager {
 
             boolean notify = false;
             if (notify_char != null) {
-                Log.e("gaga","fuck1");
                 final int properties = notify_char.getProperties();
              //   LepuBleLog.d(TAG, "notifyChar properties ==  " + properties);
                 notify = (properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0;
-                Log.e("fuck", "notifyChar notify ==  " + notify);
             }
             boolean writeRequest = false;
             if (write_char != null) {
-                Log.e("gaga","fuck2");
                 final int properties = write_char.getProperties();
                 int writeType = BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT;
                 if ((properties & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) != 0) {

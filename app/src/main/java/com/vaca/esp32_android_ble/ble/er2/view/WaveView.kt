@@ -111,7 +111,7 @@ class WaveView : View {
                         for (k in it) {
 
                             val xcv = k.toFloat()
-                            Log.e("fuck",xcv.toString())
+
                             if (xcv > 2.2f) {
                                 BleServer.waveDataX.offer(2.2f)
                             } else if (xcv < -2.2f) {
