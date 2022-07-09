@@ -35,12 +35,6 @@ class SecondFragment : Fragment() {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
 
-        BleServer.waveDataX.clear()
-//        BleServer.rtDataTask = WaveView.Companion.RtDataTask()
-//        Timer().schedule(BleServer.rtDataTask, Date(), 500)
-
-//        BleServer.drawTask = WaveView.Companion.DrawTask()
-//        Timer().schedule(BleServer.drawTask, Date(), 32)
         er2Graph.observe(viewLifecycleOwner, {
             binding.waveView.invalidate()
         })
