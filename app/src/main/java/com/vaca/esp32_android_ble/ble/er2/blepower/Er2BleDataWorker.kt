@@ -14,6 +14,7 @@ import no.nordicsemi.android.ble.observer.ConnectionObserver
 import java.lang.Exception
 import java.nio.charset.Charset
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Er2BleDataWorker {
@@ -32,7 +33,7 @@ class Er2BleDataWorker {
 
     data class ReceiveData(val n1: Double, val n2: Double)
 
-    val waveData = LinkedList<Double>()
+    val waveData = ArrayList<Double>()
 
 
     private val comeData = object : NotifyListener {
@@ -60,16 +61,44 @@ class Er2BleDataWorker {
                     waveData.clear()
                 } else {
                     pool = com.viatom.littlePu.utils.add(pool, this)
-                     Log.e("gagax",a)
+                    // Log.e("gagax",a)
                     pool?.apply {
                         pool = handleDataPool(pool)
                     }
                 }
 
-                if(a.contains("本次SWV扫描结束")){
-                    for(k in waveData){
-                        Log.e("ghgh",k.toString())
+                if(a.contains("扫描结束")){
+                    val size=waveData.size/2;
+                    val a=DoubleArray(size){
+                        waveData[it*2]
                     }
+                    val b=DoubleArray(size){
+                        waveData[it*2+1]
+                    }
+                    val c=DoubleArray(size){
+                        (b[it]-a[it])
+                    }
+
+                    val size2=waveData.size/4;
+
+                    //-----------------Delta I
+                    val d=DoubleArray(size2){
+                        c[it*2+1]-c[it*2]
+                    }
+
+                    //-----------------奇数行电压
+                    val e=DoubleArray(size2){
+                        a[it*2]
+                    }
+
+
+                    for(k in d.indices){
+                        Log.e("gaga","${d[k]}   ${e[k]}")
+                    }
+
+
+                        Log.e("ghgh",waveData.size.toString())
+
                 }
 
 
