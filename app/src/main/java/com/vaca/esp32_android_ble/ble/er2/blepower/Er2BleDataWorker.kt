@@ -89,11 +89,17 @@ class Er2BleDataWorker {
             data.value?.run {
                 val a= String(this, Charset.forName("gb2312"));
                 Log.e("bleReceive",a)
+                if(first){
+                    first=false;
+                    sendCmd("OKx".toByteArray())
+                }
             }
         }
 
     }
 
+
+    var first=true
 
     private val connectState = object : ConnectionObserver {
         override fun onDeviceConnecting(device: BluetoothDevice) {
