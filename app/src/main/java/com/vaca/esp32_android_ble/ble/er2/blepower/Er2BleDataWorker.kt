@@ -10,7 +10,6 @@ import com.vaca.esp32_android_ble.ble.BleServer
 
 import com.vaca.esp32_android_ble.MainApplication
 
-import com.vaca.esp32_android_ble.ble.er2.utils.CRCUtils
 
 
 import com.viatom.littlePu.er2.bean.FileBean
