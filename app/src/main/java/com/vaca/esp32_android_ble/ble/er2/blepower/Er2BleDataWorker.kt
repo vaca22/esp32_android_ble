@@ -35,6 +35,8 @@ import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import kotlin.experimental.inv
 
 
@@ -83,14 +85,13 @@ class Er2BleDataWorker {
     )
 
     private val comeData = object : NotifyListener {
-        override fun onNotify(device: BluetoothDevice?, data: Data?) {
+        override fun onNotify(device: BluetoothDevice, data: Data) {
+            data.value?.run {
+                val a= String(this, Charset.forName("gb2312"));
+                Log.e("bleReceive",a)
+            }
 
-            data?.value?.apply {
-                pool = com.viatom.littlePu.utils.add(pool, this)
-            }
-            pool?.apply {
-                pool = handleDataPool(pool)
-            }
+
         }
 
     }
