@@ -36,6 +36,7 @@ class SecondFragment : Fragment() {
 
 
         er2Graph.observe(viewLifecycleOwner, {
+            WaveView.disp=true
             binding.waveView.invalidate()
         })
 

@@ -23,6 +23,9 @@ import java.util.*
 class WaveView : View {
 
     companion object {
+        var dvy:DoubleArray?=null
+        var dvx:DoubleArray?=null
+
         var disp = true
         val drawSize = 500
         var deltaX=1f;
@@ -157,37 +160,32 @@ class WaveView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        deltaX=width.toFloat()/ drawSize;
+
         canvas.drawARGB(0, 0, 0, 0)
         if (disp) {
-            var wavePath = Path()
-            for ((index, h) in data.withIndex()) {
-                n2 = judgePoint(index)
-                if ((n2 == 1) && (index == data.size - 1)) {
-                    canvas.drawPath(wavePath, wavePaint)
-                    n1 = 0
-                    break
-                }
-                if (n2 != n1) {
-                    if (n1 > n2) {
-                        canvas.drawPath(wavePath, wavePaint)
-                        n1 = 0
-                    } else {
-                        wavePath = Path()
-                        wavePath.moveTo(
-                            deltaX * index.toFloat(),
-                            height / 2 - h.toFloat()
-                        )
-                        n1 = 1
-                    }
-                } else {
-                    wavePath.lineTo(
-                        deltaX * index.toFloat(),
-                        height / 2 - h.toFloat()
-                    )
-                }
-
+            if(dvy==null){
+                return
             }
+            if(dvx==null){
+                return
+            }
+
+            val xmin= dvx!!.min()
+            val xmax= dvx!!.max()
+            val gx=xmax-xmin
+            val myWidth=width;
+
+            val ymin= dvy!!.min()
+            val ymax= dvy!!.max()
+            val gy=ymax-ymin
+            val myHeight=width
+
+            for(k in 0 until (dvx!!.size-1)){
+                canvas.drawLine(
+                    ((dvx!![k]-xmin)/gx*myWidth).toFloat(), ((dvy!![k]-ymin)/gy*myHeight).toFloat(),
+                    ((dvx!![k+1]-xmin)/gx*myWidth).toFloat(), ((dvy!![k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+            }
+
         }
 
     }

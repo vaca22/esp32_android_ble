@@ -7,6 +7,7 @@ import android.util.Log
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.viatom.littlePu.er2.blepower.NotifyListener
+import com.viatom.littlePu.er2.view.WaveView
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
@@ -91,11 +92,9 @@ class Er2BleDataWorker {
                         a[it*2]
                     }
 
-
-                    for(k in d.indices){
-                        Log.e("gaga","${d[k]}   ${e[k]}")
-                    }
-
+                    WaveView.dvy=d;
+                    WaveView.dvx=e;
+                    BleServer.er2Graph.postValue(true)
 
                         Log.e("ghgh",waveData.size.toString())
 
