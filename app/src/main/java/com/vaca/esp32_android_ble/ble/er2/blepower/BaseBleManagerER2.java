@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -105,62 +106,39 @@ public abstract class BaseBleManagerER2 extends BleManager {
         @Override
         public boolean isRequiredServiceSupported(@NonNull final BluetoothGatt gatt) {
 
-          //  LepuBleLog.d(TAG, "id:" + service_uuid + ",,,,," + write_uuid + ",,,," + notify_uuid + ",,,,isUpdater=" + isUpdater);
-
-
-//            final BluetoothGattService service = gatt.getService(service_uuid);
-//            if (service != null) {
-//                write_char = service.getCharacteristic(write_uuid);
-//                notify_char = service.getCharacteristic(notify_uuid);
-//            }
-//            // Validate properties
-//            boolean notify = false;
-//            if (notify_char != null) {
-//                final int properties = notify_char.getProperties();
-//                notify = (properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0;
-//            }
-//            boolean writeRequest = false;
-//            if (write_char != null) {
-//                final int properties = write_char.getProperties();
-//                writeRequest = (properties & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) != 0;
-//                write_char.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
-//            }
-//            // Return true if all required services have been found
-//            return write_char != null && notify_char != null
-//                    && notify && writeRequest;
 
             final BluetoothGattService service = gatt.getService(service_uuid);
-          //  LepuBleLog.d(TAG, "service ==  " + service);
 
-            if (isUpdater && service == null) return true;
             if (service != null) {
                 write_char = service.getCharacteristic(write_uuid);
                 notify_char = service.getCharacteristic(notify_uuid);
             }
-       //     LepuBleLog.d(TAG, "writeChar ==  " + write_char);
-         //   LepuBleLog.d(TAG, "notifyChar ==  " + notify_char);
-            // Validate properties
+
             boolean notify = false;
             if (notify_char != null) {
+                Log.e("gaga","fuck1");
                 final int properties = notify_char.getProperties();
              //   LepuBleLog.d(TAG, "notifyChar properties ==  " + properties);
                 notify = (properties & BluetoothGattCharacteristic.PROPERTY_NOTIFY) != 0;
-            //    LepuBleLog.d(TAG, "notifyChar notify ==  " + notify);
+                Log.e("fuck", "notifyChar notify ==  " + notify);
             }
             boolean writeRequest = false;
             if (write_char != null) {
+                Log.e("gaga","fuck2");
                 final int properties = write_char.getProperties();
-            //    LepuBleLog.d(TAG, "writeChar properties ==  " + properties);
                 int writeType = BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT;
                 if ((properties & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) != 0) {
                     writeType = BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE;
                 }
                 write_char.setWriteType(writeType);
                 writeRequest = (properties & BluetoothGattCharacteristic.PROPERTY_WRITE) != 0 || (properties & BluetoothGattCharacteristic.PROPERTY_WRITE_NO_RESPONSE) != 0;
-           ///     LepuBleLog.d(TAG, "writeChar writeRequest ==  " + writeRequest);
+
 
             }
-            // Return true if all required services have been found
+
+            Log.e("gaga",""+(write_char != null && notify_char != null
+                    && notify && writeRequest));
+
             return write_char != null && notify_char != null
                     && notify && writeRequest;
         }

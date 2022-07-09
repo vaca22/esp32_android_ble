@@ -28,9 +28,9 @@ class BleScanManager {
             val device = result.device
             if (device?.name == null) return;
             scan?.apply {
-                if(result.rssi>-60){
+
                     scanReturn(device.name, device)
-                }
+
 
             }
             Log.i("scanned ble", " ${device.name}")
@@ -40,7 +40,7 @@ class BleScanManager {
         override fun onScanFailed(errorCode: Int) {}
     }
 
-    fun setCallBack(scan: Scan) {
+    fun setCallBack(scan: BleScanManager.Scan) {
         this.scan = scan
     }
 
