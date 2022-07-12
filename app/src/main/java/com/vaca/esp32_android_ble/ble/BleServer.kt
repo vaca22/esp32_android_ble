@@ -16,7 +16,8 @@ object BleServer {
     val er2_worker: Er2BleDataWorker = Er2BleDataWorker()
     var er2ConnectFlag = false
     val waveDataX = LinkedList<Float>()
-
+    var textInfo="";
+    var textTotal=MutableLiveData<String>()
     val bleState=MutableLiveData<String>()
 
     var drawTask: WaveView.Companion.DrawTask? = null

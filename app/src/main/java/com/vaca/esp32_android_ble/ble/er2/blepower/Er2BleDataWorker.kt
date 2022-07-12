@@ -42,7 +42,8 @@ class Er2BleDataWorker {
             data.value?.run {
 
                 val a = String(this, Charset.forName("gb2312"));
-
+                BleServer.textInfo+=a
+                BleServer.textTotal.postValue(BleServer.textInfo)
                 if (a.contains("请输入OKx")) {
                     BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
@@ -69,6 +70,7 @@ class Er2BleDataWorker {
                 }
 
                 if(a.contains("扫描结束")){
+                    BleServer.textInfo=""
                     val size=waveData.size/2;
                     val a=DoubleArray(size){
                         waveData[it*2]

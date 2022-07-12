@@ -48,6 +48,10 @@ class SecondFragment : Fragment() {
             binding.state.text=it
         }
 
+
+        BleServer.textTotal.observe(viewLifecycleOwner){
+            binding.textInfo.text=it;
+        }
         return binding.root
 
     }

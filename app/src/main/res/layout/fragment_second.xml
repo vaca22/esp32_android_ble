@@ -21,6 +21,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <androidx.core.widget.NestedScrollView
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/ga"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:id="@+id/textInfo"
+            app:layout_constraintTop_toBottomOf="@+id/ga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.core.widget.NestedScrollView>
+
+
     <Button
         android:id="@+id/ga"
         android:visibility="visible"
