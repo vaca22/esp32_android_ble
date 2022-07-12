@@ -102,7 +102,7 @@ class Er2BleDataWorker {
                     WaveView.dvx=e;
                     BleServer.er2Graph.postValue(true)
 
-                        Log.e("ghgh",waveData.size.toString())
+                    Log.e("ghgh",waveData.size.toString())
 
                 }
 

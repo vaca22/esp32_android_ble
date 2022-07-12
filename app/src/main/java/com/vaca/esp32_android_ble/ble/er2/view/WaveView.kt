@@ -17,6 +17,7 @@ import com.viatom.littlePu.er2.bean.Er2Draw
 
 
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.*
 
 
@@ -171,21 +172,25 @@ class WaveView : View {
             if(dvx==null){
                 return
             }
+            try {
+                val xmin= dvx!!.min()
+                val xmax= dvx!!.max()
+                val gx=xmax-xmin
+                val myWidth=width;
 
-            val xmin= dvx!!.min()
-            val xmax= dvx!!.max()
-            val gx=xmax-xmin
-            val myWidth=width;
+                val ymin= dvy!!.min()
+                val ymax= dvy!!.max()
+                val gy=ymax-ymin
+                val myHeight=width
 
-            val ymin= dvy!!.min()
-            val ymax= dvy!!.max()
-            val gy=ymax-ymin
-            val myHeight=width
+                for(k in 0 until (dvx!!.size-1)){
+                    canvas.drawLine(
+                        ((dvx!![k]-xmin)/gx*myWidth).toFloat(), ((dvy!![k]-ymin)/gy*myHeight).toFloat(),
+                        ((dvx!![k+1]-xmin)/gx*myWidth).toFloat(), ((dvy!![k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+                }
 
-            for(k in 0 until (dvx!!.size-1)){
-                canvas.drawLine(
-                    ((dvx!![k]-xmin)/gx*myWidth).toFloat(), ((dvy!![k]-ymin)/gy*myHeight).toFloat(),
-                    ((dvx!![k+1]-xmin)/gx*myWidth).toFloat(), ((dvy!![k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+            }catch (e:Exception){
+                return
             }
 
         }
