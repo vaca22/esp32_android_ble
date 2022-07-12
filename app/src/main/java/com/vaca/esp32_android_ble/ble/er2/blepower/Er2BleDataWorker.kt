@@ -157,6 +157,8 @@ class Er2BleDataWorker {
             BleServer.er2ConnectFlag = true
             Log.e("dada1", "dada5")
 
+            BleServer.bleState.postValue("状态：蓝牙已连接")
+
 
         }
 
@@ -179,6 +181,7 @@ class Er2BleDataWorker {
         }
 
         override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
+            BleServer.bleState.postValue("状态：蓝牙已断开")
 
             BleServer.er2ConnectFlag = false
 

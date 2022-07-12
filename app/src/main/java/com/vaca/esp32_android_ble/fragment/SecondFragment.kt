@@ -41,8 +41,13 @@ class SecondFragment : Fragment() {
         }
 
         binding.ga.setOnClickListener {
-
+            BleServer.er2_worker.sendCmd("OKx".toByteArray())
         }
+
+        BleServer.bleState.observe(viewLifecycleOwner){
+            binding.state.text=it
+        }
+
         return binding.root
 
     }
