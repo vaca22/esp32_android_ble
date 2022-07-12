@@ -34,7 +34,7 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
-
+        er2Graph.postValue(true)
         er2Graph.observe(viewLifecycleOwner, {
             WaveView.disp=true
             binding.waveView.invalidate()

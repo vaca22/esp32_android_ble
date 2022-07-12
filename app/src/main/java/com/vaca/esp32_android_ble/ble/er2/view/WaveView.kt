@@ -153,7 +153,8 @@ class WaveView : View {
 
         bgPaint.apply {
             color = getColor(R.color.gray)
-            style = Paint.Style.STROKE
+            style = Paint.Style.FILL
+
             strokeWidth = 2.0f
         }
     }
@@ -162,6 +163,7 @@ class WaveView : View {
         super.onDraw(canvas)
 
         canvas.drawARGB(0, 0, 0, 0)
+        canvas.drawRect(0f,0f,width.toFloat(),width.toFloat(),bgPaint)
         if (disp) {
             if(dvy==null){
                 return
