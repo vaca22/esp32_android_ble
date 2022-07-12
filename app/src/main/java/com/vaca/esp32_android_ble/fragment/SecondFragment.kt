@@ -51,6 +51,7 @@ class SecondFragment : Fragment() {
 
         BleServer.textTotal.observe(viewLifecycleOwner){
             binding.textInfo.text=it;
+           binding.da.fullScroll(View.FOCUS_DOWN);
         }
         return binding.root
 

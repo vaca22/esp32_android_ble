@@ -45,6 +45,9 @@ class Er2BleDataWorker {
                 BleServer.textInfo+=a
                 BleServer.textTotal.postValue(BleServer.textInfo)
                 if (a.contains("请输入OKx")) {
+                    waveData.clear()
+                    pool=null
+                    BleServer.textInfo=a
                     BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
                     BleServer.er2_worker.sendCmd("600x".toByteArray())
@@ -61,6 +64,7 @@ class Er2BleDataWorker {
                 } else if (a.contains("参数设置完成")) {
                     Log.e("gaga", "done")
                     waveData.clear()
+                    pool=null
                 } else {
                     pool = com.viatom.littlePu.utils.add(pool, this)
                     // Log.e("gagax",a)
@@ -70,7 +74,7 @@ class Er2BleDataWorker {
                 }
 
                 if(a.contains("扫描结束")){
-                    BleServer.textInfo=""
+
                     val size=waveData.size/2;
                     val a=DoubleArray(size){
                         waveData[it*2]
