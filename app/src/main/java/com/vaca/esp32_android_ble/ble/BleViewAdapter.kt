@@ -29,6 +29,11 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
     // binds the data to the TextView in each cell
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bleName.text = mBleData[position].name
+        if(mBleData[position].span){
+            holder.dada.visibility=View.VISIBLE
+        }else{
+            holder.dada.visibility=View.GONE
+        }
     }
 
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?) {
@@ -46,6 +51,14 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         mClickListener = itemClickListener
     }
 
+    fun setSpan(position: Int){
+        for(k in mBleData.indices){
+            mBleData[k].span = k==position
+        }
+        notifyDataSetChanged()
+    }
+
+
     interface ItemClickListener {
         fun onScanItemClick(bluetoothDevice: BluetoothDevice)
     }
@@ -55,6 +68,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         var dada:ConstraintLayout=itemView.findViewById(R.id.dada)
         var bleName: TextView = itemView.findViewById(R.id.ble_name)
         override fun onClick(view: View) {
+            setSpan(layoutPosition)
             dada.visibility=View.VISIBLE
             //if (mClickListener != null) mClickListener!!.onScanItemClick(mBleData[adapterPosition].bluetoothDevice!!)
         }
