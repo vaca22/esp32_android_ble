@@ -44,21 +44,27 @@ class BleScanManager {
 
     fun initScan(context: Context) {
         context.apply {
-            val settings: ScanSettings = ScanSettings.Builder()
-                .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
-                .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
-                .build()
 
 
             val bluetoothManager =
                 getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
             bluetoothAdapter = bluetoothManager.adapter
             leScanner = bluetoothAdapter!!.bluetoothLeScanner
-            leScanner.startScan(null, settings, leScanCallback)
+
         }
     }
 
     fun stop() {
         leScanner.stopScan(leScanCallback)
+    }
+
+
+    fun start(){
+        val settings: ScanSettings = ScanSettings.Builder()
+            .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+            .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES)
+            .build()
+
+        leScanner.startScan(null, settings, leScanCallback)
     }
 }
