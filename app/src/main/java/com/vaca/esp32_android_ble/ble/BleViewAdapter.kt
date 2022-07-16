@@ -38,7 +38,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
             holder.bleName.background=null
         }
         val gaga=mBleData[position]
-        holder.info.text="信号强度："+gaga.rssi.toString()+"\n"+"MAC地址"+gaga.addr
+        holder.info.text="信号强度："+gaga.rssi.toString()+"\n"+"MAC地址："+gaga.addr
     }
 
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?,mac:String,rssi:Int) {
