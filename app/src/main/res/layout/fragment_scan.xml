@@ -44,7 +44,7 @@
         android:text="停止扫描"
         android:id="@+id/stop"
         android:elevation="100dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="140dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
