@@ -67,6 +67,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         View.OnClickListener {
         var dada:ConstraintLayout=itemView.findViewById(R.id.dada)
         var bleName: TextView = itemView.findViewById(R.id.ble_name)
+        val info:TextView=itemView.findViewById(R.id.info)
         override fun onClick(view: View) {
             setSpan(layoutPosition)
             dada.visibility=View.VISIBLE
