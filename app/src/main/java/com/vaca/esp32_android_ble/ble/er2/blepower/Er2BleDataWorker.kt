@@ -156,6 +156,7 @@ class Er2BleDataWorker {
     private val connectState = object : ConnectionObserver {
         override fun onDeviceConnecting(device: BluetoothDevice) {
             Log.e("dada1", "dada4")
+            BleServer.bleState.postValue("状态：蓝牙连接中")
         }
 
         override fun onDeviceConnected(device: BluetoothDevice) {
@@ -172,17 +173,18 @@ class Er2BleDataWorker {
 
             Log.e("dada1", "dada6")
             BleServer.er2ConnectFlag = false
+            BleServer.bleState.postValue("状态：蓝牙连接失败")
 
 
         }
 
         override fun onDeviceReady(device: BluetoothDevice) {
 
-
+            BleServer.bleState.postValue("状态：蓝牙已连接")
         }
 
         override fun onDeviceDisconnecting(device: BluetoothDevice) {
-
+            BleServer.bleState.postValue("状态：蓝牙断开中")
 
         }
 
