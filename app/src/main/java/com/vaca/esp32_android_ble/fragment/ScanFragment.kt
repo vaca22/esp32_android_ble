@@ -56,7 +56,9 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         binding.bleTable.adapter = bleViewAdapter
         bleViewAdapter.setClickListener(this)
 
-
+        BleServer.bleState.observe(viewLifecycleOwner){
+            //binding.state.text=it
+        }
 
         return binding.root
 
