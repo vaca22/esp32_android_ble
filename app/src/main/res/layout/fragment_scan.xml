@@ -11,6 +11,8 @@
         android:layout_height="match_parent" />
 
     <TextView
+        android:textColor="@color/white"
+        android:background="@drawable/bb1"
         android:text="开始扫描"
         android:gravity="center"
         android:textSize="30sp"
@@ -24,6 +26,7 @@
         android:layout_height="60dp"/>
 
     <TextView
+        android:background="@drawable/bb2"
         android:gravity="center"
         android:textSize="30sp"
         android:text="停止扫描"
