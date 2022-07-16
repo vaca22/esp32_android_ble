@@ -6,15 +6,19 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.vaca.esp32_android_ble.fragment.FirstFragment"
+        android:id="@+id/navigation_dashboard"
+        android:name="com.vaca.esp32_android_ble.fragment.GraphFragment"
+        />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.vaca.esp32_android_ble.fragment.SettingFragment"
+        android:label="SettingFragment" />
 
-      />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.vaca.esp32_android_ble.fragment.SecondFragment"
-        />
+        android:id="@+id/navigation_home"
+        android:name="com.vaca.esp32_android_ble.fragment.ScanFragment"
 
+        />
 
 </navigation>

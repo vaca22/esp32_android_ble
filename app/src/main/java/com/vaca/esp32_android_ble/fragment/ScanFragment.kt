@@ -20,7 +20,7 @@ import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanManager.Scan {
+class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanManager.Scan {
 
 
     companion object{
@@ -95,7 +95,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMan
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice) {
         scan.stop()
         BleServer.connect(bluetoothDevice)
-        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+       // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
 }

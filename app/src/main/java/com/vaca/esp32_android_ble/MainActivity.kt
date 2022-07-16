@@ -3,22 +3,15 @@ package com.vaca.esp32_android_ble
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
-import com.vaca.esp32_android_ble.fragment.FirstFragment
-import org.greenrobot.eventbus.EventBus
+import com.vaca.esp32_android_ble.fragment.ScanFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION)!!
-            FirstFragment.gaga.postValue(yes)
+            ScanFragment.gaga.postValue(yes)
         }
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -41,11 +34,16 @@ class MainActivity : AppCompatActivity() {
         ) {
             requestVoicePermission.launch( arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
         }else{
-            FirstFragment.gaga.postValue(true)
+            ScanFragment.gaga.postValue(true)
         }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val navView: BottomNavigationView = binding.navView
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
+        navView.setupWithNavController(navController)
     }
 
 

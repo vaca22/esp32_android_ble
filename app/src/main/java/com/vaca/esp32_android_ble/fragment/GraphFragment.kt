@@ -19,7 +19,7 @@ import java.util.*
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class GraphFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
 
