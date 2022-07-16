@@ -95,6 +95,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         }
         if (z == 0) {
             bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
+            binding.found.text="已发现${bleList.size}个蓝牙设备"
             bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
         }
     }
