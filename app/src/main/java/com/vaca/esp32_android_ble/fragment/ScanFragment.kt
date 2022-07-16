@@ -2,6 +2,7 @@ package com.vaca.esp32_android_ble.fragment
 
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -135,6 +136,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice) {
         scan.stop()
         name=bluetoothDevice.name
+        Log.e("gaga",name)
         BleServer.connect(bluetoothDevice)
        // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
