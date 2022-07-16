@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vaca.esp32_android_ble.ble.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
 import com.vaca.esp32_android_ble.ble.BleViewAdapter
@@ -51,7 +52,11 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         }
 
         _binding =FragmentScanBinding.inflate(inflater, container, false)
-        binding.bleTable.layoutManager = GridLayoutManager(requireContext(), 2);
+
+
+        binding.bleTable.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
         bleViewAdapter = BleViewAdapter(requireContext())
         binding.bleTable.adapter = bleViewAdapter
         bleViewAdapter.setClickListener(this)
