@@ -206,12 +206,13 @@ class Er2BleDataWorker {
 
     fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
         bluetoothDevice?.let {
-//            if (myEr2BleDataManager == null) {
+            if (myEr2BleDataManager == null) {
                 myEr2BleDataManager = Er2BleDataManagerER2(MainApplication.application)
                 myEr2BleDataManager?.setNotifyListener(comeData)
                 myEr2BleDataManager?.setConnectionObserver(connectState)
-//            }
-            myEr2BleDataManager?.disconnect();
+            }
+            myEr2BleDataManager?.disconnect()?.enqueue();
+
 
             myEr2BleDataManager?.connect(it)
                 ?.useAutoConnect(true)
