@@ -13,7 +13,7 @@ import android.util.Log
 
 class BleScanManager {
     interface Scan {
-        fun scanReturn(name: String, bluetoothDevice: BluetoothDevice)
+        fun scanReturn(name: String, bluetoothDevice: BluetoothDevice,addr:String,rssi:Int)
     }
 
     private var bluetoothAdapter: BluetoothAdapter? = null
@@ -27,11 +27,9 @@ class BleScanManager {
             super.onScanResult(callbackType, result)
             val device = result.device
             if (device?.name == null) return;
+            Log.e("dadab",device.address)
             scan?.apply {
-
-                    scanReturn(device.name, device)
-
-
+                    scanReturn(device.name, device,device.address,result.rssi)
             }
             Log.i("scanned ble", " ${device.name}")
         }

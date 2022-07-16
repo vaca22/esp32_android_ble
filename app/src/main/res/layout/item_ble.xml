@@ -19,8 +19,9 @@
             android:visibility="gone"
             android:id="@+id/dada"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="130dp">
                 <TextView
+                    android:padding="10dp"
                     android:id="@+id/info"
                     android:textSize="15sp"
                     android:textColor="@color/black"

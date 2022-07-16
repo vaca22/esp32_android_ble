@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.vaca.esp32_android_ble.R
 
@@ -31,13 +32,17 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         holder.bleName.text = mBleData[position].name
         if(mBleData[position].span){
             holder.dada.visibility=View.VISIBLE
+            holder.bleName.background=ContextCompat.getDrawable(mContext,R.drawable.bb2)
         }else{
             holder.dada.visibility=View.GONE
+            holder.bleName.background=null
         }
+        val gaga=mBleData[position]
+        holder.info.text="信号强度："+gaga.rssi.toString()+"\n"+"MAC地址"+gaga.addr
     }
 
-    fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?) {
-        mBleData.add(BleBean(name!!, bluetoothDevice!!))
+    fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?,mac:String,rssi:Int) {
+        mBleData.add(BleBean(name!!, bluetoothDevice!!,mac,rssi))
         notifyItemChanged(mBleData.size-1)
     }
 

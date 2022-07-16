@@ -82,7 +82,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
 
-    override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice) {
+    override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice,addr:String,rssi:Int) {
 //        if(bluetoothDevice.name.startsWith("DuoEK")==false){
 //            return
 //        }
@@ -94,8 +94,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
         }
         if (z == 0) {
-            bleList.add(BleBean(name, bluetoothDevice))
-            bleViewAdapter.addDevice(name, bluetoothDevice)
+            bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
+            bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
         }
     }
 
