@@ -21,7 +21,11 @@ class StartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.aa.setOnClickListener {
-            startActivity(Intent(this@StartActivity, MainActivity::class.java))
+            val intent=Intent(this@StartActivity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            this.finish()
         }
 
     }
