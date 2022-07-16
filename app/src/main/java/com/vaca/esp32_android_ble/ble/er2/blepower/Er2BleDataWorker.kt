@@ -209,6 +209,7 @@ class Er2BleDataWorker {
                 myEr2BleDataManager?.setNotifyListener(comeData)
                 myEr2BleDataManager?.setConnectionObserver(connectState)
             }
+            myEr2BleDataManager?.disconnect();
 
             myEr2BleDataManager?.connect(it)
                 ?.useAutoConnect(true)

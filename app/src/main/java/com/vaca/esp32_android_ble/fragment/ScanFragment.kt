@@ -37,8 +37,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     private var _binding: FragmentScanBinding? = null
     lateinit var bleViewAdapter: BleViewAdapter
     val scan = BleScanManager()
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    var name=""
+
     private val binding get() = _binding!!
     lateinit var myInflater: LayoutInflater
     fun bindSet2(boolean: Boolean) {
@@ -86,7 +86,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         bleViewAdapter.setClickListener(this)
 
         BleServer.bleState.observe(viewLifecycleOwner){
-            //binding.state.text=it
+            binding.status.text=it+" (${name})"
         }
 
 
@@ -134,6 +134,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice) {
         scan.stop()
+        name=bluetoothDevice.name
         BleServer.connect(bluetoothDevice)
        // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }

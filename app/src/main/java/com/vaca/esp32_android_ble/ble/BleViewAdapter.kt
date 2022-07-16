@@ -73,14 +73,18 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         var dada:ConstraintLayout=itemView.findViewById(R.id.dada)
         var bleName: TextView = itemView.findViewById(R.id.ble_name)
         val info:TextView=itemView.findViewById(R.id.info)
+        val yes:TextView=itemView.findViewById(R.id.yes)
         override fun onClick(view: View) {
             setSpan(layoutPosition)
             dada.visibility=View.VISIBLE
-            //if (mClickListener != null) mClickListener!!.onScanItemClick(mBleData[adapterPosition].bluetoothDevice!!)
+
         }
 
         init {
             itemView.setOnClickListener(this)
+            yes.setOnClickListener {
+                if (mClickListener != null) mClickListener!!.onScanItemClick(mBleData[adapterPosition].bluetoothDevice!!)
+            }
         }
     }
 
