@@ -15,7 +15,7 @@ import com.vaca.esp32_android_ble.ble.BleViewAdapter
 import com.vaca.esp32_android_ble.R
 
 import com.vaca.esp32_android_ble.ble.BleServer
-import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
+import com.vaca.esp32_android_ble.databinding.FragmentScanBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -29,7 +29,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
     private val bleList: MutableList<BleBean> = ArrayList()
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentScanBinding? = null
     lateinit var bleViewAdapter: BleViewAdapter
     val scan = BleScanManager()
     // This property is only valid between onCreateView and
@@ -50,7 +50,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
         }
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding =FragmentScanBinding.inflate(inflater, container, false)
         binding.bleTable.layoutManager = GridLayoutManager(requireContext(), 2);
         bleViewAdapter = BleViewAdapter(requireContext())
         binding.bleTable.adapter = bleViewAdapter

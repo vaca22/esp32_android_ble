@@ -10,7 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
-import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
+import com.vaca.esp32_android_ble.databinding.FragmentGraphBinding
+
 import com.viatom.littlePu.er2.view.WaveView
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
@@ -21,7 +22,7 @@ import java.util.*
  */
 class GraphFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentGraphBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -32,7 +33,7 @@ class GraphFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentGraphBinding.inflate(inflater, container, false)
 
         er2Graph.postValue(true)
         er2Graph.observe(viewLifecycleOwner) {
