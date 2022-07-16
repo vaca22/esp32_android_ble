@@ -1,28 +1,21 @@
 package com.vaca.esp32_android_ble.fragment
 
-import android.Manifest
 import android.bluetooth.BluetoothDevice
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.vaca.esp32_android_ble.BleBean
-import com.vaca.esp32_android_ble.BleScanManager
-import com.vaca.esp32_android_ble.BleViewAdapter
+import com.vaca.esp32_android_ble.ble.BleBean
+import com.vaca.esp32_android_ble.ble.BleScanManager
+import com.vaca.esp32_android_ble.ble.BleViewAdapter
 import com.vaca.esp32_android_ble.R
 
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.

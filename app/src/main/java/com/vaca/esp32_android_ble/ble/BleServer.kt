@@ -2,7 +2,6 @@ package com.vaca.esp32_android_ble.ble
 
 import android.bluetooth.BluetoothDevice
 import androidx.lifecycle.MutableLiveData
-import com.vaca.esp32_android_ble.BleScanManager
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
 import com.viatom.littlePu.er2.view.WaveView

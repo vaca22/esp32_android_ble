@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble
+package com.vaca.esp32_android_ble.ble
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -40,7 +40,7 @@ class BleScanManager {
         override fun onScanFailed(errorCode: Int) {}
     }
 
-    fun setCallBack(scan: BleScanManager.Scan) {
+    fun setCallBack(scan: Scan) {
         this.scan = scan
     }
 

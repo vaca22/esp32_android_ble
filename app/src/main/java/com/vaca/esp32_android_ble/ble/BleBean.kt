@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble
+package com.vaca.esp32_android_ble.ble
 
 import android.bluetooth.BluetoothDevice
 
