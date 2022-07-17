@@ -69,7 +69,7 @@ public abstract class BaseBleManagerER2 extends BleManager {
             writeCharacteristic(write_char, bytes,BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE)
                     .split()
                     .done(device -> {
-                    Log.e("fuck",device.getName() + " send: ");
+                 //   Log.e("fuck",device.getName() + " send: ");
                     })
                     .enqueue();
         } catch (Exception e) {
