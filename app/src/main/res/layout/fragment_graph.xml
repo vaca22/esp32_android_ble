@@ -12,7 +12,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="10dp"
         android:elevation="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="保存"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
