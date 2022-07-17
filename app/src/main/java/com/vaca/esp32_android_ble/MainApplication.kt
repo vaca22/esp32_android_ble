@@ -5,6 +5,7 @@ import android.util.Log
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.io.path.Path
 import kotlin.random.Random
 
 
@@ -19,6 +20,7 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         application = this
+        PathUtil.initVar(this)
     }
 
 

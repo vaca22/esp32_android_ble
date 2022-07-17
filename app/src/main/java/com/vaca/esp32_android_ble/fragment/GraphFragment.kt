@@ -2,11 +2,15 @@ package com.vaca.esp32_android_ble.fragment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
@@ -41,6 +45,18 @@ class GraphFragment : Fragment() {
             binding.waveView.invalidate()
         }
 
+        _binding!!.da.setOnClickListener {
+            Toast(requireContext()).apply {
+                val layout = inflater.inflate(R.layout.toast_layout, null)
+                layout.findViewById<TextView>(R.id.dada).apply {
+                    text = "原始文件和计算数据已保存到"+PathUtil.getPathX("")
+                }
+                setGravity(Gravity.CENTER, 0, 0)
+                duration = Toast.LENGTH_LONG
+                setView(layout)
+                show()
+            }
+        }
 
         return binding.root
 

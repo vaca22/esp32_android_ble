@@ -51,12 +51,12 @@ class Er2BleDataWorker {
             data.value?.run {
 
                 val a = String(this, Charset.forName("gb2312"));
-//                BleServer.textInfo+=a
-//                BleServer.textTotal.postValue(BleServer.textInfo)
+                BleServer.textInfo+=a
+             //   BleServer.textTotal.postValue(BleServer.textInfo)
                 if (a.contains("请输入OKx")) {
                     waveData.clear()
                     pool=null
-//                    BleServer.textInfo=a
+                    BleServer.textInfo=a
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
                     BleServer.er2_worker.sendCmd(( Vbias.toString()+"x").toByteArray())
