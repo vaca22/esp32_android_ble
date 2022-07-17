@@ -22,6 +22,15 @@ class Er2BleDataWorker {
     private var myEr2BleDataManager: Er2BleDataManagerER2? = null
     private var pool: ByteArray? = null
 
+    companion object{
+        var Vbias="600"
+        var Vlow="-200"
+        var Vhigh="600"
+        var Vstep="5"
+        var Vpulse="50"
+        var Tstep="100"
+    }
+
     fun byteArray2String(byteArray: ByteArray): String {
         var fuc = ""
         for (b in byteArray) {
@@ -50,17 +59,17 @@ class Er2BleDataWorker {
 //                    BleServer.textInfo=a
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
-                    BleServer.er2_worker.sendCmd("600x".toByteArray())
+                    BleServer.er2_worker.sendCmd(( Vbias.toString()+"x").toByteArray())
                 } else if (a.contains("请输入起始电压")) {
-                    BleServer.er2_worker.sendCmd("-200x".toByteArray())
+                    BleServer.er2_worker.sendCmd((Vlow.toString()+"x").toByteArray())
                 } else if (a.contains("请输入终止电压")) {
-                    BleServer.er2_worker.sendCmd("600x".toByteArray())
+                    BleServer.er2_worker.sendCmd((Vhigh.toString()+"x").toByteArray())
                 } else if (a.contains("请输入阶梯步进")) {
-                    BleServer.er2_worker.sendCmd("5x".toByteArray())
+                    BleServer.er2_worker.sendCmd((Vstep.toString()+"x").toByteArray())
                 } else if (a.contains("请输入脉冲电压")) {
-                    BleServer.er2_worker.sendCmd("50x".toByteArray())
+                    BleServer.er2_worker.sendCmd((Vpulse.toString()+"x").toByteArray())
                 } else if (a.contains("请输入周期时间")) {
-                    BleServer.er2_worker.sendCmd("100x".toByteArray())
+                    BleServer.er2_worker.sendCmd((Tstep.toString()+"x").toByteArray())
                 } else if (a.contains("参数设置完成")) {
                     Log.e("gaga", "done")
                     waveData.clear()
