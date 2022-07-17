@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/connect">
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/show"
         android:name="com.vaca.esp32_android_ble.fragment.GraphFragment"
         />
     <fragment
-        android:id="@+id/settingFragment"
+        android:id="@+id/setting"
         android:name="com.vaca.esp32_android_ble.fragment.SettingFragment"
         android:label="SettingFragment" />
 
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/connect"
         android:name="com.vaca.esp32_android_ble.fragment.ScanFragment"
 
         />
