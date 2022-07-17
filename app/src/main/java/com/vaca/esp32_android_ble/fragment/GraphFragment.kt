@@ -41,19 +41,7 @@ class GraphFragment : Fragment() {
             binding.waveView.invalidate()
         }
 
-        binding.ga.setOnClickListener {
-            BleServer.er2_worker.sendCmd("OKx".toByteArray())
-        }
 
-        BleServer.bleState.observe(viewLifecycleOwner){
-            binding.state.text=it
-        }
-
-
-        BleServer.textTotal.observe(viewLifecycleOwner){
-            binding.textInfo.text=it;
-           binding.da.fullScroll(View.FOCUS_DOWN);
-        }
         return binding.root
 
     }

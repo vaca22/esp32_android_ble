@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.vaca.esp32_android_ble.ble.BleServer
 
 import com.vaca.esp32_android_ble.databinding.FragmentSettingBinding
 
@@ -19,6 +20,10 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding=FragmentSettingBinding.inflate(inflater, container, false)
+
+        binding.start.setOnClickListener {
+            BleServer.er2_worker.sendCmd("OKx".toByteArray())
+        }
         return binding.root
     }
 

@@ -4,52 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#5a5a5a"
     tools:context=".fragment.GraphFragment">
-
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/school_name2"
+        android:layout_width="300dp"
+        android:layout_height="200dp"/>
 
     <com.viatom.littlePu.er2.view.WaveView
+        android:layout_marginTop="200dp"
         android:id="@+id/waveView"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="3:2"
         android:layout_height="0dp"/>
-    <TextView
-        android:padding="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/waveView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
-    <androidx.core.widget.NestedScrollView
-        android:scrollbars="vertical"
-        android:id="@+id/da"
-        app:layout_constraintTop_toBottomOf="@+id/ga"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/textInfo"
-                app:layout_constraintTop_toBottomOf="@+id/ga"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-
-
-    </androidx.core.widget.NestedScrollView>
-
-
-    <Button
-        android:id="@+id/ga"
-        android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/waveView"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="30dp"
-        android:text="发送开始命令"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
