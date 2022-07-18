@@ -3,6 +3,7 @@ package com.vaca.esp32_android_ble.ble.er2.blepower
 
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.graphics.PointF
 import android.util.Log
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
@@ -29,6 +30,7 @@ class Er2BleDataWorker {
         var Vstep="5"
         var Vpulse="50"
         var Tstep="100"
+        val pointData=ArrayList<Pf>()
     }
 
     fun byteArray2String(byteArray: ByteArray): String {
@@ -42,8 +44,10 @@ class Er2BleDataWorker {
 
 
     data class ReceiveData(val n1: Double, val n2: Double)
+    data class Pf(val x:Double,val y:Double)
 
     val waveData = ArrayList<Double>()
+
 
 
     private val comeData = object : NotifyListener {
@@ -56,6 +60,11 @@ class Er2BleDataWorker {
              //   BleServer.textTotal.postValue(BleServer.textInfo)
                 if (a.contains("请输入OKx")) {
                     waveData.clear()
+                    pointData.clear()
+                    WaveView.tempDx.clear()
+                    WaveView.tempDy.clear()
+                    WaveView.dvy=null
+                    WaveView.dvx=null
                     pool=null
                     BleServer.textInfo=a
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
@@ -142,6 +151,24 @@ class Er2BleDataWorker {
                 if ((bytesLeft[k] == 0x20.toByte()).or(bytesLeft!![k] == 0x0A.toByte())) {
                     try {
                         waveData.add(String(bytesLeft.copyOfRange(0,k)).toDouble())
+                        val len=waveData.size
+                        if(len%4==0){
+                            val a=waveData[len-4]
+                            val b=waveData[len-3]
+                            val n1=(b-a)/10
+                            val c=waveData[len-2]
+                            val d=waveData[len-1]
+                            val n2=(d-c)/10
+                            val n3=n2-n1
+                            val n4=a/1000
+                            WaveView.tempDx.add(n4)
+                            WaveView.tempDy.add(n3)
+                            pointData.add(Pf(n4,n3))
+                            if(len>=8){
+                                WaveView.currentDrawIndex=len/4
+                                BleServer.er2Graph.postValue(true)
+                            }
+                        }
                     }catch (e:Exception){
                         return null
                     }

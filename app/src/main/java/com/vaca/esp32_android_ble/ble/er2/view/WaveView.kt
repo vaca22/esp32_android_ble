@@ -11,22 +11,28 @@ import androidx.core.content.ContextCompat
 
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
 
 
 import com.viatom.littlePu.er2.bean.Er2Draw
 
 
-import kotlinx.coroutines.launch
-import java.lang.Exception
+
 import java.util.*
+import kotlin.Exception
+import kotlin.collections.ArrayList
 
 
 class WaveView : View {
 
     companion object {
+        var currentDrawIndex=2;
         var dvy:DoubleArray?=null
         var dvx:DoubleArray?=null
         var peakCurrent=0.0
+
+        var tempDx=ArrayList<Double>()
+        var tempDy=ArrayList<Double>()
 
         var disp = true
         val drawSize = 500
@@ -167,41 +173,77 @@ class WaveView : View {
         canvas.drawARGB(0, 0, 0, 0)
         canvas.drawRect(0f,0f,width.toFloat(),width.toFloat(),bgPaint)
         if (disp) {
+            var gg=0;
             if(dvy==null){
-                return
+                gg=1
             }
             if(dvx==null){
-                return
+               gg=1
             }
-            try {
-                var xmin= dvx!!.min()
-                var xmax= dvx!!.max()
-                xmin=0.0;
-                xmax=4.0;
-                val gx=xmax-xmin
-                val myWidth=width;
+
+            if(gg==0){
+                try {
+                    var xmin= dvx!!.min()
+                    var xmax= dvx!!.max()
+                    xmin=0.0;
+                    xmax=4.0;
+                    val gx=xmax-xmin
+                    val myWidth=width;
 
 
 
-                var ymin= dvy!!.min()
-                var ymax= dvy!!.max()
-                ymin=-0.5;
-                ymax=0.5
+                    var ymin= dvy!!.min()
+                    var ymax= dvy!!.max()
+                    ymin=-0.5;
+                    ymax=0.5
 
 
-                Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
-                val gy=ymax-ymin
-                val myHeight=width
+                    Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
+                    val gy=ymax-ymin
+                    val myHeight=width
 
-                for(k in 0 until (dvx!!.size-1)){
-                    canvas.drawLine(
-                        ((dvx!![k]-xmin)/gx*myWidth).toFloat(), ((dvy!![k]-ymin)/gy*myHeight).toFloat(),
-                        ((dvx!![k+1]-xmin)/gx*myWidth).toFloat(), ((dvy!![k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+                    for(k in 0 until (dvx!!.size-1)){
+                        canvas.drawLine(
+                            ((dvx!![k]-xmin)/gx*myWidth).toFloat(), ((dvy!![k]-ymin)/gy*myHeight).toFloat(),
+                            ((dvx!![k+1]-xmin)/gx*myWidth).toFloat(), ((dvy!![k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+                    }
+
+                }catch (e:Exception){
+                    return
+                }
+            }else{
+                try {
+                    var xmin=0.0
+                    var xmax= 4.0
+
+                    val gx=xmax-xmin
+                    val myWidth=width;
+
+                    var ymin=-0.5
+                    var ymax= 0.5
+                    val gy=ymax-ymin
+                    val myHeight=width
+
+//                    val nx1=Er2BleDataWorker.pointData[currentDrawIndex-2]
+//                    val nx2=Er2BleDataWorker.pointData[currentDrawIndex-1]
+
+                    for(k in 0 until (tempDx.size-1)){
+                        canvas.drawLine(
+                            ((tempDx[k]-xmin)/gx*myWidth).toFloat(), ((tempDy[k]-ymin)/gy*myHeight).toFloat(),
+                            ((tempDx[k+1]-xmin)/gx*myWidth).toFloat(), ((tempDy[k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
+                    }
+//                    canvas.drawLine(
+//                        ((nx1.x-xmin)/gx*myWidth).toFloat(), ((nx1.y-ymin)/gy*myHeight).toFloat(),
+//                        ((nx2.x-xmin)/gx*myWidth).toFloat(), ((nx2.y-ymin)/gy*myHeight).toFloat(),wavePaint);
+                }catch (e:Exception){
+
                 }
 
-            }catch (e:Exception){
-                return
+
+
             }
+
+
 
         }
 
