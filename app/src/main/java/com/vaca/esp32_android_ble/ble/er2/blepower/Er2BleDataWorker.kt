@@ -9,6 +9,8 @@ import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.viatom.littlePu.er2.blepower.NotifyListener
 import com.viatom.littlePu.er2.view.WaveView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
@@ -69,7 +71,11 @@ class Er2BleDataWorker {
                     BleServer.textInfo=a
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
-                    BleServer.er2_worker.sendCmd(( Vbias.toString()+"x").toByteArray())
+                    BleServer.dataScope.launch {
+                        delay(100)
+                        BleServer.er2_worker.sendCmd(( "600x").toByteArray())
+                    }
+
                 } else if (a.contains("请输入起始电压")) {
                     BleServer.er2_worker.sendCmd((Vlow.toString()+"x").toByteArray())
                 } else if (a.contains("请输入终止电压")) {

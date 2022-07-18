@@ -194,13 +194,14 @@ class WaveView : View {
 
                     var ymin= dvy!!.min()
                     var ymax= dvy!!.max()
+                    Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
                     ymin=-0.5;
                     ymax=0.5
 
 
                     Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
                     val gy=ymax-ymin
-                    val myHeight=width
+                    val myHeight=height
 
                     for(k in 0 until (dvx!!.size-1)){
                         canvas.drawLine(
