@@ -174,13 +174,19 @@ class WaveView : View {
                 return
             }
             try {
-                val xmin= dvx!!.min()
-                val xmax= dvx!!.max()
+                var xmin= dvx!!.min()
+                var xmax= dvx!!.max()
+                xmin=0.0;
+                xmax=4.0;
                 val gx=xmax-xmin
                 val myWidth=width;
 
-                val ymin= dvy!!.min()
-                val ymax= dvy!!.max()
+
+
+                var ymin= dvy!!.min()
+                var ymax= dvy!!.max()
+                ymin=-0.5;
+                ymax=0.5
 
 
                 Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
