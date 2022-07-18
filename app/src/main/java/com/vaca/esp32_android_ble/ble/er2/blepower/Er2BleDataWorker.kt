@@ -92,7 +92,7 @@ class Er2BleDataWorker {
                         waveData[it*2+1]
                     }
                     val c=DoubleArray(size){
-                        (b[it]-a[it])
+                        (b[it]-a[it])/10.0
                     }
 
                     val size2=waveData.size/4;
