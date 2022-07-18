@@ -224,17 +224,13 @@ class WaveView : View {
                     val gy=ymax-ymin
                     val myHeight=width
 
-//                    val nx1=Er2BleDataWorker.pointData[currentDrawIndex-2]
-//                    val nx2=Er2BleDataWorker.pointData[currentDrawIndex-1]
 
                     for(k in 0 until (tempDx.size-1)){
                         canvas.drawLine(
                             ((tempDx[k]-xmin)/gx*myWidth).toFloat(), ((tempDy[k]-ymin)/gy*myHeight).toFloat(),
                             ((tempDx[k+1]-xmin)/gx*myWidth).toFloat(), ((tempDy[k+1]-ymin)/gy*myHeight).toFloat(),wavePaint);
                     }
-//                    canvas.drawLine(
-//                        ((nx1.x-xmin)/gx*myWidth).toFloat(), ((nx1.y-ymin)/gy*myHeight).toFloat(),
-//                        ((nx2.x-xmin)/gx*myWidth).toFloat(), ((nx2.y-ymin)/gy*myHeight).toFloat(),wavePaint);
+
                 }catch (e:Exception){
 
                 }
