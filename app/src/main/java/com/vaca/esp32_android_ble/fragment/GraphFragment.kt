@@ -49,13 +49,17 @@ class GraphFragment : Fragment() {
             Toast(requireContext()).apply {
                 val layout = inflater.inflate(R.layout.toast_layout, null)
                 layout.findViewById<TextView>(R.id.dada).apply {
-                    text = "原始文件和计算数据已保存到"+PathUtil.getPathX("")
+                    text = "原始文件已保存到"+PathUtil.getPathX("")
                 }
                 setGravity(Gravity.CENTER, 0, 0)
                 duration = Toast.LENGTH_LONG
                 setView(layout)
                 show()
             }
+        }
+
+        WaveView.nn.observe(viewLifecycleOwner){
+            binding.peak.text="Peak Current: \n"+it
         }
 
         return binding.root

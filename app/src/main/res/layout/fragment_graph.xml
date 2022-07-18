@@ -40,4 +40,16 @@
         app:layout_constraintDimensionRatio="3:2"
         android:layout_height="0dp"/>
 
+    <TextView
+        android:id="@+id/peak"
+        app:layout_constraintTop_toBottomOf="@+id/waveView2"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="Peek Current:"
+        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

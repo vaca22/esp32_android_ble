@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
@@ -30,6 +31,7 @@ class WaveView : View {
         var dvy:DoubleArray?=null
         var dvx:DoubleArray?=null
         var peakCurrent=0.0
+        var nn=MutableLiveData<Double>()
 
         var tempDx=ArrayList<Double>()
         var tempDy=ArrayList<Double>()
@@ -194,6 +196,7 @@ class WaveView : View {
 
                     var ymin= dvy!!.min()
                     var ymax= dvy!!.max()
+                    nn.postValue(ymax)
                     Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
                     ymin=-0.5;
                     ymax=0.5

@@ -5,7 +5,9 @@ import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.graphics.PointF
 import android.util.Log
+import com.vaca.esp32_android_ble.DateStringUtil
 import com.vaca.esp32_android_ble.MainApplication
+import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.viatom.littlePu.er2.blepower.NotifyListener
 import com.viatom.littlePu.er2.view.WaveView
@@ -15,6 +17,7 @@ import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
+import java.io.File
 import java.lang.Exception
 import java.nio.charset.Charset
 import java.util.*
@@ -99,6 +102,10 @@ class Er2BleDataWorker {
                 }
 
                 if(a.contains("扫描结束")){
+                    val tsMother = System.currentTimeMillis()
+                    val ts = DateStringUtil.timeConvert4(tsMother)
+                    File(PathUtil.getPathX("data"+ts+".txt")).writeBytes(BleServer.textInfo.toByteArray(Charset.forName("gb2312")))
+
 
                     val size=waveData.size/2;
                     val a=DoubleArray(size){
