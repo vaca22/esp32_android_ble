@@ -150,11 +150,11 @@ class WaveViewBackGround : View {
         val baseY = height.toFloat() * 1 / 2
 
         canvas.drawPath(p, linePaint)
-        canvas.drawLine(30f, baseY, 30f, -co + baseY, linePaint)
-        canvas.drawText("0.25uA", 35f, baseY + 35f, timePaint)
-
+        canvas.drawLine(30f,height.toFloat(), 30f, 0f, linePaint)
+        canvas.drawText("0.25uA", 35f, baseY -100f, timePaint)
+        canvas.drawLine(0f, baseY, width.toFloat(),  baseY, linePaint)
         for(k in 0..4){
-            canvas.drawText("${k} V", width/4.0f*k+10f, baseY + 75f, timePaint)
+            canvas.drawText("${k} V", width/4.0f*k+10f, baseY + 25f, timePaint)
         }
 
     }
