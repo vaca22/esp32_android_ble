@@ -94,6 +94,7 @@ class Er2BleDataWorker {
                     val c=DoubleArray(size){
                         (b[it]-a[it])/10.0
                     }
+                    WaveView.peakCurrent=c.max()
 
                     val size2=waveData.size/4;
 

@@ -26,6 +26,7 @@ class WaveView : View {
     companion object {
         var dvy:DoubleArray?=null
         var dvx:DoubleArray?=null
+        var peakCurrent=0.0
 
         var disp = true
         val drawSize = 500
