@@ -181,6 +181,9 @@ class WaveView : View {
 
                 val ymin= dvy!!.min()
                 val ymax= dvy!!.max()
+
+
+                Log.e("geaddd","xmin:${xmin}   xmax:${xmax}   ymin:${ymin}   ymax:${ymax} ")
                 val gy=ymax-ymin
                 val myHeight=width
 

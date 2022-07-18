@@ -51,6 +51,7 @@ class Er2BleDataWorker {
             data.value?.run {
 
                 val a = String(this, Charset.forName("gb2312"));
+                Log.e("gaga",a)
                 BleServer.textInfo+=a
              //   BleServer.textTotal.postValue(BleServer.textInfo)
                 if (a.contains("请输入OKx")) {
@@ -105,7 +106,7 @@ class Er2BleDataWorker {
 
                     //-----------------奇数行电压
                     val e=DoubleArray(size2){
-                        a[it*2]
+                        a[it*2]/1000.0
                     }
 
                     WaveView.dvy=d;
