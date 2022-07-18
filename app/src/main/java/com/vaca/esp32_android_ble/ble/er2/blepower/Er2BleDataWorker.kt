@@ -73,7 +73,7 @@ class Er2BleDataWorker {
                 } else if (a.contains("请输入RE基准电压")) {
                     BleServer.dataScope.launch {
                         delay(100)
-                        BleServer.er2_worker.sendCmd(( "600x").toByteArray())
+                        BleServer.er2_worker.sendCmd(( Vbias.toString()+"x").toByteArray())
                     }
 
                 } else if (a.contains("请输入起始电压")) {
