@@ -171,7 +171,7 @@ class WaveView : View {
         super.onDraw(canvas)
 
         canvas.drawARGB(0, 0, 0, 0)
-        canvas.drawRect(0f,0f,width.toFloat(),width.toFloat(),bgPaint)
+//        canvas.drawRect(0f,0f,width.toFloat(),width.toFloat(),bgPaint)
         if (disp) {
             var gg=0;
             if(dvy==null){
@@ -223,7 +223,7 @@ class WaveView : View {
                     var ymin=-0.5
                     var ymax= 0.5
                     val gy=ymax-ymin
-                    val myHeight=width
+                    val myHeight=height
 
 
                     for(k in 0 until (tempDx.size-1)){

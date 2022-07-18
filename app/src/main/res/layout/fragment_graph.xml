@@ -25,8 +25,16 @@
         android:layout_height="200dp"/>
 
     <com.viatom.littlePu.er2.view.WaveView
+        android:elevation="10dp"
         android:layout_marginTop="200dp"
         android:id="@+id/waveView"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintDimensionRatio="3:2"
+        android:layout_height="0dp"/>
+    <com.viatom.littlePu.er2.view.WaveViewBackGround
+        android:layout_marginTop="200dp"
+        android:id="@+id/waveView2"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintDimensionRatio="3:2"
