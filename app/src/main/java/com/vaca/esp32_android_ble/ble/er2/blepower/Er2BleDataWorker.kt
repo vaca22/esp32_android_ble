@@ -105,8 +105,8 @@ class Er2BleDataWorker {
                 if(a.contains("扫描结束")){
                     val tsMother = System.currentTimeMillis()
                     val ts = DateStringUtil.timeConvert4(tsMother)
-                    File(PathUtil.getPathX("data"+ts+".txt")).writeBytes(BleServer.textInfo.toByteArray(Charset.forName("gb2312")))
-
+                    File(PathUtil.getPathX("SWV_"+ts+".txt")).writeBytes(BleServer.textInfo.toByteArray(Charset.forName("gb2312")))
+                    BleServer.copyFileToDownloads(MainApplication.application,File(PathUtil.getPathX("SWV_"+ts+".txt")))
 
                     val size=waveData.size/2;
                     val a=DoubleArray(size){

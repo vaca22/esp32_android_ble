@@ -43,36 +43,7 @@ class GraphFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private val DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
-
-
-    fun copyFileToDownloads(context: Context, downloadedFile: File): Uri? {
-        val resolver = context.contentResolver
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, downloadedFile.name)
-                put(MediaStore.MediaColumns.MIME_TYPE, downloadedFile.extension)
-                put(MediaStore.MediaColumns.SIZE, downloadedFile.usableSpace)
-            }
-            resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-        } else {
-            val authority = "${context.packageName}.provider"
-            val destinyFile = File(DOWNLOAD_DIR, (downloadedFile).name)
-            FileProvider.getUriForFile(context, authority, destinyFile)
-        }?.also { downloadedUri ->
-            resolver.openOutputStream(downloadedUri).use { outputStream ->
-                val brr = ByteArray(1024)
-                var len: Int
-                val bufferedInputStream = BufferedInputStream(FileInputStream(downloadedFile.absoluteFile))
-                while ((bufferedInputStream.read(brr, 0, brr.size).also { len = it }) != -1) {
-                    outputStream?.write(brr, 0, len)
-                }
-                outputStream?.flush()
-                bufferedInputStream.close()
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,7 +62,7 @@ class GraphFragment : Fragment() {
             Toast(requireContext()).apply {
                 val layout = inflater.inflate(R.layout.toast_layout, null)
                 layout.findViewById<TextView>(R.id.dada).apply {
-                    text = "原始文件已保存到"+PathUtil.getPathX("")
+                    text = "原始文件已保存到Download文件夹"
                 }
                 setGravity(Gravity.CENTER, 0, 0)
                 duration = Toast.LENGTH_LONG
