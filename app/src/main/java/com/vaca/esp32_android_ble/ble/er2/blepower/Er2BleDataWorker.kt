@@ -9,6 +9,7 @@ import com.vaca.esp32_android_ble.DateStringUtil
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.fragment.SettingFragment
 import com.viatom.littlePu.er2.blepower.NotifyListener
 import com.viatom.littlePu.er2.view.WaveView
 import kotlinx.coroutines.delay
@@ -68,8 +69,8 @@ class Er2BleDataWorker {
                     pointData.clear()
                     WaveView.tempDx.clear()
                     WaveView.tempDy.clear()
-                    WaveView.dvy=null
-                    WaveView.dvx=null
+//                    WaveView.dvy=null
+//                    WaveView.dvx=null
                     pool=null
                     BleServer.textInfo=a
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
@@ -134,7 +135,7 @@ class Er2BleDataWorker {
                     WaveView.dvy=d;
                     WaveView.dvx=e;
                     BleServer.er2Graph.postValue(true)
-
+                    SettingFragment.btColor.postValue(0)
                     Log.e("ghgh",waveData.size.toString())
 
                 }
