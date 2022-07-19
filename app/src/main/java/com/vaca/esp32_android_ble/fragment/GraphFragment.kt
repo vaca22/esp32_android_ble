@@ -62,7 +62,7 @@ class GraphFragment : Fragment() {
             Toast(requireContext()).apply {
                 val layout = inflater.inflate(R.layout.toast_layout, null)
                 layout.findViewById<TextView>(R.id.dada).apply {
-                    text = "原始文件已保存到Download文件夹"
+                    text = "swv原始文件已保存到\nDownload文件夹"
                 }
                 setGravity(Gravity.CENTER, 0, 0)
                 duration = Toast.LENGTH_LONG
