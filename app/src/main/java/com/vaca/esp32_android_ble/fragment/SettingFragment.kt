@@ -16,12 +16,15 @@ import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
 
 import com.vaca.esp32_android_ble.databinding.FragmentSettingBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SettingFragment : Fragment() {
 
    lateinit var binding: FragmentSettingBinding
 
    companion object{
+       var clickTime=0L
        val btColor=MutableLiveData<Int>()
    }
 
@@ -52,6 +55,12 @@ class SettingFragment : Fragment() {
             Er2BleDataWorker.Vpulse=binding.x5.text.toString()
             Er2BleDataWorker.Tstep=binding.x6.text.toString()
             BleServer.er2_worker.sendCmd("OKx".toByteArray())
+            clickTime=System.currentTimeMillis()
+         /*   BleServer.dataScope.launch {
+                delay(300)
+                BleServer.er2_worker.sendCmd("OKx".toByteArray())
+            }*/
+
         }
 
         btColor.observe(viewLifecycleOwner){

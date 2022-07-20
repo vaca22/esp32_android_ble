@@ -73,6 +73,9 @@ class Er2BleDataWorker {
 //                    WaveView.dvx=null
                     pool=null
                     BleServer.textInfo=a
+                    if(System.currentTimeMillis()-SettingFragment.clickTime<1000){
+                        BleServer.er2_worker.sendCmd("OKx".toByteArray())
+                    }
                  //   BleServer.er2_worker.sendCmd("OKx".toByteArray())
                 } else if (a.contains("请输入RE基准电压")) {
                     BleServer.dataScope.launch {
