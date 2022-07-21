@@ -109,7 +109,6 @@ class Er2BleDataWorker {
                     val tsMother = System.currentTimeMillis()
                     val ts = DateStringUtil.timeConvert4(tsMother)
                     File(PathUtil.getPathX("SWV_"+ts+".txt")).writeBytes(BleServer.textInfo.toByteArray(Charset.forName("gb2312")))
-                    BleServer.copyFileToDownloads(MainApplication.application,File(PathUtil.getPathX("SWV_"+ts+".txt")))
 
                     val size=waveData.size/2;
                     val a=DoubleArray(size){
@@ -134,6 +133,15 @@ class Er2BleDataWorker {
                     val e=DoubleArray(size2){
                         a[it*2]/1000.0
                     }
+
+                    val ghj=File(PathUtil.getPathX("SWV_"+ts+".txt"))
+                    ghj.appendText("\n",Charset.forName("gb2312"))
+                    for(k in d.indices){
+                        ghj.appendText("电流:${String.format("%.5f",d[k])} uA ,",Charset.forName("gb2312"))
+                        ghj.appendText("电压:${String.format("%.5f",e[k])} V\n",Charset.forName("gb2312"))
+                    }
+                    BleServer.copyFileToDownloads(MainApplication.application,File(PathUtil.getPathX("SWV_"+ts+".txt")))
+
 
                     WaveView.dvy=d;
                     WaveView.dvx=e;
