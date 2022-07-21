@@ -7,12 +7,13 @@
 
     <ImageView
         android:id="@+id/aa"
+        android:padding="150dp"
         android:clickable="true"
         android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/da"
+        android:src="@drawable/da2"
         app:layout_constraintTop_toTopOf="parent" />
 
 

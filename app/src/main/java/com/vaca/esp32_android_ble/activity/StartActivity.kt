@@ -68,8 +68,8 @@ class StartActivity : AppCompatActivity() {
             permissionRequestCode -> if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initA()
             } else {
-                startActivity(Intent(this, MainActivity::class.java))
-                this.finish()
+//                startActivity(Intent(this, MainActivity::class.java))
+//                this.finish()
             }
             else -> {
             }
@@ -104,8 +104,8 @@ class StartActivity : AppCompatActivity() {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
             return;
         }
-        startActivity(Intent(this, MainActivity::class.java))
-        this.finish()
+//        startActivity(Intent(this, MainActivity::class.java))
+//        this.finish()
     }
 
     private fun isLocationEnabled(): Boolean {
