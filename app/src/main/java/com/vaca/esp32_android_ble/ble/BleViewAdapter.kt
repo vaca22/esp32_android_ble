@@ -19,6 +19,8 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
     private var mClickListener: ItemClickListener? = null
     private val mContext: Context
 
+    var bleLock=false;
+
 
 
     // inflates the cell layout from xml when needed
@@ -43,7 +45,11 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
 
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?,mac:String,rssi:Int) {
         mBleData.add(BleBean(name!!, bluetoothDevice!!,mac,rssi))
-        notifyItemChanged(mBleData.size-1)
+       // notifyItemChanged(mBleData.size-1)
+        if(bleLock==false){
+            notifyDataSetChanged()
+        }
+
     }
 
     // total number of cells

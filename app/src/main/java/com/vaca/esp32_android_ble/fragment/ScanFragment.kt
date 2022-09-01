@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.vaca.esp32_android_ble.ble.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
 import com.vaca.esp32_android_ble.ble.BleViewAdapter
@@ -22,6 +23,7 @@ import com.vaca.esp32_android_ble.R
 
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentScanBinding
+import java.lang.Thread.sleep
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -83,6 +85,28 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
         bleViewAdapter = BleViewAdapter(requireContext())
+
+        binding.bleTable.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if(newState==1){
+                    bleViewAdapter.bleLock=true
+                }else if(newState==0){
+
+                        bleViewAdapter.bleLock=false
+
+
+                }
+                Log.e("fuck",newState.toString())
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+
+
         binding.bleTable.adapter = bleViewAdapter
         bleViewAdapter.setClickListener(this)
 
