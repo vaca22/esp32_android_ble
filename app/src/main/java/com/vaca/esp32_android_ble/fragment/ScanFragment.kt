@@ -29,9 +29,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Thread.sleep
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanManager.Scan {
 
 
