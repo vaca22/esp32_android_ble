@@ -37,6 +37,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
     companion object{
         val gaga=MutableLiveData<Boolean>()
+        val filterName=MutableLiveData<String>()
     }
 
 
