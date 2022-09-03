@@ -53,6 +53,44 @@ class GraphFragment : Fragment() {
 
 
 
+        binding.x1.setOnClickListener {
+
+        }
+
+        binding.x11.setOnClickListener {
+
+        }
+        binding.x2.setOnClickListener {
+
+        }
+
+        binding.x3.setOnClickListener {
+
+        }
+
+        binding.x4.setOnClickListener {
+
+        }
+
+        binding.x5.setOnClickListener {
+
+        }
+
+        binding.x6.setOnClickListener {
+
+        }
+
+        binding.x61.setOnClickListener {
+
+        }
+
+        binding.x62.setOnClickListener {
+
+        }
+
+        binding.x63.setOnClickListener {
+
+        }
 
 
         return binding.root
