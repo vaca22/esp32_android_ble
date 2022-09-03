@@ -39,10 +39,6 @@ class Er2BleDataWorker {
     }
 
 
-    data class ReceiveData(val n1: Double, val n2: Double)
-    data class Pf(val x:Double,val y:Double)
-
-    val waveData = ArrayList<Double>()
 
 
 
