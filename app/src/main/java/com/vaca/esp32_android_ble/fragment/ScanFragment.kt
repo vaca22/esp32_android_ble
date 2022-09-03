@@ -113,6 +113,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         })
 
 
+
+
         binding.bleTable.adapter = bleViewAdapter
         bleViewAdapter.setClickListener(this)
 
@@ -166,6 +168,11 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
 
         })
+
+
+        filterName.observe(viewLifecycleOwner){
+            binding.name.setText(it)
+        }
 
         binding.rssi.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
