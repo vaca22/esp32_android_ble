@@ -186,7 +186,21 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
 
             override fun afterTextChanged(s: Editable?) {
+                val a=binding.rssi.text.toString()
+                try {
+                    val b=a.toInt()
+                    filterNamex= a.toString()
+                    val bleList2: ArrayList<BleBean> = ArrayList()
+                    for(gg in bleList){
+                        if(gg.rssi>=b){
+                            bleList2.add(gg)
+                        }
+                    }
+                    displayList.postValue(bleList2)
 
+                }catch (e:Exception){
+                    displayList.postValue(bleList)
+                }
             }
 
         })
