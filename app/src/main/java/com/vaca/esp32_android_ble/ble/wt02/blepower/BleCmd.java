@@ -98,8 +98,8 @@ public class BleCmd {
         int len = 1;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
-        cmd[1] = (byte) GETBAT;
-        cmd[2] = (byte) ~GETBAT;
+        cmd[1] = (byte) CHANGEMODE;
+        cmd[2] = (byte) ~CHANGEMODE;
         cmd[3] = (byte) seqNo;
         cmd[4] = (byte) 1;
         cmd[5] = (byte) a;
