@@ -26,7 +26,7 @@ import com.vaca.esp32_android_ble.databinding.FragmentGraphBinding
 
 
 
-class GraphFragment : Fragment() {
+class DashboardFragment : Fragment() {
 
     private var _binding: FragmentGraphBinding? = null
 

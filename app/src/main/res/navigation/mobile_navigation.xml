@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/show"
-        android:name="com.vaca.esp32_android_ble.fragment.GraphFragment"
+        android:name="com.vaca.esp32_android_ble.fragment.DashboardFragment"
         />
 
 
