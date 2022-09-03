@@ -38,6 +38,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     companion object{
         val gaga=MutableLiveData<Boolean>()
         val filterName=MutableLiveData<String>()
+        var filterNamex=""
     }
 
 
@@ -156,7 +157,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val a=binding.name.text
+                val a=binding.name.text.toString()
+                filterNamex= a.toString()
                 val bleList2: ArrayList<BleBean> = ArrayList()
                 for(gg in bleList){
                     if(gg.name.contains(a)){
@@ -224,7 +226,14 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         if (z == 0) {
             try {
                 bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
-                bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
+                if(filterNamex.isNotEmpty()){
+                    if(name.contains(filterNamex)){
+
+                    }
+                }else{
+                    bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
+                }
+
             }catch (e:Exception){
 
             }
