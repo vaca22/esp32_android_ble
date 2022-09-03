@@ -21,6 +21,7 @@ import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
+import com.vaca.esp32_android_ble.ble.wt02.blepower.BleCmd
 import com.vaca.esp32_android_ble.databinding.FragmentGraphBinding
 
 
@@ -46,11 +47,11 @@ class DashboardFragment : Fragment() {
 
 
         binding.x1.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.activate(true))
         }
 
         binding.x11.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.activate(false))
         }
         binding.x2.setOnClickListener {
 

@@ -5,11 +5,11 @@ import static com.vaca.esp32_android_ble.ble.wt02.utils.CRCUtils.calCRC8;
 
 public class BleCmd {
 
-    public static int ACTIVATE = 0xA1;
-    public static int SYNCDATA = 0xA4;
-    public static int ENTERTEST = 0xA5;
-    public static int GETBAT = 0xA2;
-    public static int CHANGEMODE = 0xA3;
+    private static int ACTIVATE = 0xA1;
+    private static int SYNCDATA = 0xA4;
+    private static int ENTERTEST = 0xA5;
+    private static int GETBAT = 0xA2;
+    private static int CHANGEMODE = 0xA3;
 
     private static int seqNo = 0;
 
