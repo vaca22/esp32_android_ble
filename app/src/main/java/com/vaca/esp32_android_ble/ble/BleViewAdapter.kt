@@ -63,9 +63,16 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
     }
 
     fun setSpan(position: Int){
-        for(k in mBleData.indices){
-            mBleData[k].span = k==position
+        if(mBleData[position].span==true){
+            for(k in mBleData.indices){
+                mBleData[k].span =false
+            }
+        }else{
+            for(k in mBleData.indices){
+                mBleData[k].span = k==position
+            }
         }
+
         notifyDataSetChanged()
     }
 
