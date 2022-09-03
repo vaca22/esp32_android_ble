@@ -6,8 +6,8 @@ import static com.vaca.esp32_android_ble.ble.wt02.utils.CRCUtils.calCRC8;
 public class BleCmd {
 
     public static int ACTIVATE = 0xA1;
-    private static int seqNo = 0;
 
+    private static int seqNo = 0;
 
     private static void addNo() {
         seqNo++;
