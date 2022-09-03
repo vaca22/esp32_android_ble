@@ -279,9 +279,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     override fun onScanItemClick(bluetoothDevice: BluetoothDevice) {
         scan.stop()
         name=bluetoothDevice.name
-        Log.e("gaga",name)
         BleServer.connect(bluetoothDevice)
-       // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
 }
