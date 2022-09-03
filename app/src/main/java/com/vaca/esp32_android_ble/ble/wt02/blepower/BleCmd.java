@@ -4,17 +4,8 @@ package com.vaca.esp32_android_ble.ble.wt02.blepower;
 import static com.vaca.esp32_android_ble.ble.wt02.utils.CRCUtils.calCRC8;
 
 public class BleCmd {
-    public final static byte CMD_SET_TIME = (byte) 0xEC;
-    public final static int CMD_SET_TIME2 = 0xEC;
+
     public static int ER2_RESET = 0xE3;
-    public static int ER2_CMD_GET_INFO = 0xE1;
-    public static int ER2_CMD_RT_DATA = 0x03;
-    public static int ER2_CMD_READ_FILE_LIST = 0xF1;
-    public static int ER2_CMD_READ_FILE_START = 0xF2;
-    public static int ER2_CMD_READ_FILE_DATA = 0xF3;
-    public static int ER2_CMD_READ_FILE_END = 0xF4;
-    public static int ER2_CMD_GET_PARA = 0x00;
-    public static int ER2_CMD_SET_PARA = 0x04;
     private static int seqNo = 0;
 
 
