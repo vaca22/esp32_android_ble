@@ -42,12 +42,7 @@ class MainActivity : AppCompatActivity() {
             val top = l[1]
             val bottom = top + v.getHeight()
             val right = left + v.getWidth()
-            return if (event.x > left && event.x < right && event.y > top && event.y < bottom) {
-                // 点击位置如果是EditText的区域，忽略它，不收起键盘。
-                false
-            } else {
-                true
-            }
+            return !(event.x > left && event.x < right && event.y > top && event.y < bottom)
         }
         // 如果焦点不是EditText则忽略
         return false
