@@ -107,7 +107,7 @@
                 android:background="#ffff00"
                 android:id="@+id/x62" />
             <TextView
-                android:layout_marginTop="190dp"
+                android:layout_margin="10dp"
                 android:text="快捷训练模式"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
