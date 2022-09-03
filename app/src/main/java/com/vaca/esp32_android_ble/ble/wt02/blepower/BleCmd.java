@@ -47,7 +47,7 @@ public class BleCmd {
         cmd[2] = (byte) ~SYNCDATA;
         cmd[3] = (byte) seqNo;
         cmd[4] = (byte) 1;
-        cmd[5] = (byte) 1;
+        cmd[5] = (byte) 0;
         cmd[6] = calCRC8(cmd);
         addNo();
         return cmd;
@@ -61,7 +61,7 @@ public class BleCmd {
         cmd[1] = (byte) SYNCDATA;
         cmd[2] = (byte) ~SYNCDATA;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 0;
+        cmd[4] = (byte) 1;
         cmd[5] = (byte) 1;
         cmd[6] = calCRC8(cmd);
         addNo();

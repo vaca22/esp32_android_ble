@@ -93,6 +93,8 @@ class BleDataWorker {
 
 
     fun sendCmd(bs: ByteArray) {
+        val gg=byteArray2String(bs)
+        Log.e("sendCmd",gg)
         myBleDataManager?.sendCmd(bs)
     }
 
