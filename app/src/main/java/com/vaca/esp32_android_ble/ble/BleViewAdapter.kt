@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vaca.esp32_android_ble.R
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.ViewHolder>() {
     private val mBleData: MutableList<BleBean>
@@ -49,6 +50,17 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         if(bleLock==false){
             notifyDataSetChanged()
         }
+
+    }
+
+    fun addAll(a:List<BleBean>) {
+        mBleData.clear()
+        for(k in a){
+            mBleData.add(k)
+        }
+
+        notifyDataSetChanged()
+
 
     }
 

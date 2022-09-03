@@ -41,6 +41,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
     private val bleList: MutableList<BleBean> = ArrayList()
+    private val displayList= MutableLiveData<List<BleBean>>()
     private var _binding: FragmentScanBinding? = null
     lateinit var bleViewAdapter: BleViewAdapter
     val scan = BleScanManager()
@@ -135,7 +136,9 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
 
-
+        displayList.observe(viewLifecycleOwner){
+            bleViewAdapter.addAll(it)
+        }
 
 
 
@@ -150,6 +153,14 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
 
             override fun afterTextChanged(s: Editable?) {
+                val a=binding.name.text
+                val bleList2: ArrayList<BleBean> = ArrayList()
+                for(gg in bleList){
+                    if(gg.name.contains(a)){
+                        bleList2.add(gg)
+                    }
+                }
+                displayList.postValue(bleList2)
 
             }
 
