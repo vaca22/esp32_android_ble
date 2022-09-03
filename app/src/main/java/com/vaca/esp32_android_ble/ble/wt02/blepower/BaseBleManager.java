@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble.ble.er2.blepower;
+package com.vaca.esp32_android_ble.ble.wt02.blepower;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -10,19 +10,14 @@ import androidx.annotation.NonNull;
 
 
 import com.viatom.littlePu.er2.blepower.NotifyListener;
-import com.viatom.littlePu.utils.ByteArrayKt;
 
 import java.util.UUID;
 
 import no.nordicsemi.android.ble.BleManager;
 
 
-/**
- * author: wujuan
- * created on: 2021/1/26 17:32
- * description:
- */
-public abstract class BaseBleManagerER2 extends BleManager {
+
+public abstract class BaseBleManager extends BleManager {
     public final static String TAG = "BaseBleManagerER2";
     public UUID service_uuid;
     public UUID write_uuid;
@@ -32,7 +27,7 @@ public abstract class BaseBleManagerER2 extends BleManager {
     boolean isUpdater = false;
     private NotifyListener listener;
 
-    public BaseBleManagerER2(@NonNull final Context context) {
+    public BaseBleManager(@NonNull final Context context) {
         super(context);
         initUUID();
 
@@ -57,7 +52,6 @@ public abstract class BaseBleManagerER2 extends BleManager {
     public void setNotify() {
         setNotificationCallback(notify_char)
                 .with((device, data) -> {
-//                        LogUtils.d(device.getName() + " received: " + ByteArrayKt.bytesToHex(data.getValue()));
                     listener.onNotify(device, data);
                 });
     }
@@ -151,22 +145,11 @@ public abstract class BaseBleManagerER2 extends BleManager {
         // MTU or write some initial data. Do it here.
         @Override
         protected void initialize() {
-//            beginAtomicRequestQueue()
-//                    .add(requestMtu(23) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
-//                            .with((device, mtu) -> LepuBleLog.d(TAG, "MTU set to " + mtu))
-//                            .fail((device, status) -> log(Log.WARN, "Requested MTU not supported: " + status)))
-////                    .add(setPreferredPhy(PhyRequest.PHY_LE_2M_MASK, PhyRequest.PHY_LE_2M_MASK, PhyRequest.PHY_OPTION_NO_PREFERRED)
-////                            .fail((device, status) -> log(Log.WARN, "Requested PHY not supported: " + status)))
-////                    .add(requestConnectionPriority(CONNECTION_PRIORITY_HIGH))
-////                    .add(sleep(500))
-//                    .add(enableNotifications(notify_char))
-//                    .done(device -> LepuBleLog.d(TAG, "Target initialized"))
-//                    .enqueue();
-            //LepuBleLog.d(TAG, "initialize");
+
 
             initReqQueue();
             setNotify();
-            BaseBleManagerER2.this.init();
+            BaseBleManager.this.init();
 
         }
 

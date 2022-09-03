@@ -1,31 +1,22 @@
-package com.vaca.esp32_android_ble.ble.er2.blepower
+package com.vaca.esp32_android_ble.ble.wt02.blepower
 
 
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
-import com.vaca.esp32_android_ble.DateStringUtil
 import com.vaca.esp32_android_ble.MainApplication
-import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.ble.BleServer
-import com.vaca.esp32_android_ble.ble.er2.utils.add
 
 import com.viatom.littlePu.er2.blepower.NotifyListener
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
-import java.io.File
-import java.lang.Exception
-import java.nio.charset.Charset
-import kotlin.collections.ArrayList
 
 
-class Er2BleDataWorker {
-    private var myEr2BleDataManager: Er2BleDataManagerER2? = null
+class BleDataWorker {
+    private var myBleDataManager: BleDataManager? = null
     private var pool: ByteArray? = null
 
 
@@ -102,21 +93,21 @@ class Er2BleDataWorker {
 
 
     fun sendCmd(bs: ByteArray) {
-        myEr2BleDataManager?.sendCmd(bs)
+        myBleDataManager?.sendCmd(bs)
     }
 
 
     fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
         bluetoothDevice?.let {
-            if (myEr2BleDataManager == null) {
-                myEr2BleDataManager = Er2BleDataManagerER2(MainApplication.application)
-                myEr2BleDataManager?.setNotifyListener(comeData)
-                myEr2BleDataManager?.setConnectionObserver(connectState)
+            if (myBleDataManager == null) {
+                myBleDataManager = BleDataManager(MainApplication.application)
+                myBleDataManager?.setNotifyListener(comeData)
+                myBleDataManager?.setConnectionObserver(connectState)
             }
-            myEr2BleDataManager?.disconnect()?.enqueue();
+            myBleDataManager?.disconnect()?.enqueue();
 
 
-            myEr2BleDataManager?.connect(it)
+            myBleDataManager?.connect(it)
                 ?.useAutoConnect(true)
                 ?.retry(10, 100)
                 ?.timeout(10000)
@@ -147,7 +138,7 @@ class Er2BleDataWorker {
 
 
     fun disconnect() {
-        myEr2BleDataManager?.disconnect()?.enqueue()
+        myBleDataManager?.disconnect()?.enqueue()
         BleServer.er2ConnectFlag = false
     }
 

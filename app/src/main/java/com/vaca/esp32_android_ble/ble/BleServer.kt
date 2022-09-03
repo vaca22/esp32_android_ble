@@ -10,7 +10,7 @@ import android.provider.MediaStore
 import androidx.core.content.FileProvider
 import androidx.lifecycle.MutableLiveData
 import com.vaca.esp32_android_ble.MainApplication
-import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
+import com.vaca.esp32_android_ble.ble.wt02.blepower.BleDataWorker
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ import java.util.*
 object BleServer {
     val dataScope = CoroutineScope(Dispatchers.IO)
     val scan = BleScanManager()
-    val ble_worker: Er2BleDataWorker = Er2BleDataWorker()
+    val ble_worker: BleDataWorker = BleDataWorker()
     var er2ConnectFlag = false
     val waveDataX = LinkedList<Float>()
     var textInfo="";

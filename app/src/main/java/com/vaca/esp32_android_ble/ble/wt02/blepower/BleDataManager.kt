@@ -1,14 +1,12 @@
-package com.vaca.esp32_android_ble.ble.er2.blepower
+package com.vaca.esp32_android_ble.ble.wt02.blepower
 
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.util.Log
-import com.vaca.esp32_android_ble.ble.er2.blepower.BaseBleManagerER2
-import no.nordicsemi.android.ble.Request
 
 import java.util.*
 
-class Er2BleDataManagerER2(context: Context) : BaseBleManagerER2(context) {
+class BleDataManager(context: Context) : BaseBleManager(context) {
     override fun initUUID() {
         service_uuid = UUID.fromString("0003cdd0-0000-1000-8000-00805f9b0131")
         write_uuid = UUID.fromString("0003cdd2-0000-1000-8000-00805f9b0131")
