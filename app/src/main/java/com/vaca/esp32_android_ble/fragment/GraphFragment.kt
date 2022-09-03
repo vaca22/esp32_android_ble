@@ -25,9 +25,7 @@ import com.vaca.esp32_android_ble.databinding.FragmentGraphBinding
 
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+
 class GraphFragment : Fragment() {
 
     private var _binding: FragmentGraphBinding? = null
