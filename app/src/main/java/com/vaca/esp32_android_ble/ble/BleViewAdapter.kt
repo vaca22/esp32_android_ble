@@ -45,19 +45,18 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
 
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?,mac:String,rssi:Int) {
         mBleData.add(BleBean(name!!, bluetoothDevice!!,mac,rssi))
-       // notifyItemChanged(mBleData.size-1)
+
         if(bleLock==false){
             notifyDataSetChanged()
         }
 
     }
 
-    // total number of cells
+
     override fun getItemCount(): Int {
         return mBleData.size
     }
 
-    // allows clicks events to be caught
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener
     }
