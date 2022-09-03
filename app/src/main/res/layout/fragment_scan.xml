@@ -5,8 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ScanFragment">
+    <androidx.cardview.widget.CardView
+        android:layout_width="230dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="14dp"
+        android:elevation="0dp"
+        android:background="#F3F4F6"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:background="#F3F4F6"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_view"
+                android:clickable="true"
+                android:focusable="true"
+                android:elevation="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <View
+                android:elevation="-10dp"
+                android:background="#5C3C3C43"
+                android:layout_marginStart="110dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_width="1dp"
+                android:layout_height="16dp"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
     <EditText
-        android:layout_margin="10dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:padding="10dp"
         android:hint="过滤名称"
         android:id="@+id/name"

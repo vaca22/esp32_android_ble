@@ -22,6 +22,7 @@ import com.vaca.esp32_android_ble.ble.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
 import com.vaca.esp32_android_ble.ble.BleViewAdapter
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.adapter.PoctorTopAdapter
 
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentScanBinding
@@ -42,6 +43,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     }
 
 
+    private lateinit var topAdapter: PoctorTopAdapter
     private val bleList: MutableList<BleBean> = ArrayList()
     private val displayList= MutableLiveData<List<BleBean>>()
     private var _binding: FragmentScanBinding? = null
@@ -87,7 +89,23 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
          myInflater=inflater
         _binding =FragmentScanBinding.inflate(inflater, container, false)
 
+        topAdapter = PoctorTopAdapter(requireContext())
 
+
+        topAdapter.click=object :PoctorTopAdapter.Click{
+            override fun clickItem(position: Int) {
+                Log.e("gaf",position.toString())
+
+            }
+        }
+
+        binding.topView.layoutManager =
+            object : LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false) {
+                override fun canScrollHorizontally(): Boolean {
+                    return false
+                }
+            }
+        binding.topView.adapter = topAdapter
         binding.bleTable.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
