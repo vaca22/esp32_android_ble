@@ -54,35 +54,35 @@ class DashboardFragment : Fragment() {
             BleServer.ble_worker.sendCmd(BleCmd.activate(false))
         }
         binding.x2.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.syncData())
         }
 
         binding.x3.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.clearData())
         }
 
         binding.x4.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.enterTest())
         }
 
         binding.x5.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.getBat())
         }
 
         binding.x6.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(1))
         }
 
         binding.x61.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(2))
         }
 
         binding.x62.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(3))
         }
 
         binding.x63.setOnClickListener {
-
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(4))
         }
 
 
