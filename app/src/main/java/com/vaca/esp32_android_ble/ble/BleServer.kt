@@ -22,7 +22,7 @@ import java.util.*
 object BleServer {
     val dataScope = CoroutineScope(Dispatchers.IO)
     val scan = BleScanManager()
-    val er2_worker: Er2BleDataWorker = Er2BleDataWorker()
+    val ble_worker: Er2BleDataWorker = Er2BleDataWorker()
     var er2ConnectFlag = false
     val waveDataX = LinkedList<Float>()
     var textInfo="";
@@ -33,7 +33,7 @@ object BleServer {
     val er2Graph = MutableLiveData<Boolean>()
 
    fun connect(b: BluetoothDevice){
-       er2_worker.initWorker(MainApplication.application,b)
+       ble_worker.initWorker(MainApplication.application,b)
    }
 
     private val DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
