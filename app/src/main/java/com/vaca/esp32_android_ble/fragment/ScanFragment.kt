@@ -14,13 +14,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vaca.esp32_android_ble.ble.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
-import com.vaca.esp32_android_ble.ble.BleViewAdapter
+import com.vaca.esp32_android_ble.adapter.BleViewAdapter
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.adapter.PoctorTopAdapter
 
@@ -30,7 +28,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Thread.sleep
 
 
 class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanManager.Scan {

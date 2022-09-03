@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble.ble
+package com.vaca.esp32_android_ble.adapter
 
 import android.bluetooth.BluetoothDevice
 import android.content.Context
@@ -10,8 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.ble.BleBean
 
-import java.util.*
 import kotlin.collections.ArrayList
 
 class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.ViewHolder>() {
