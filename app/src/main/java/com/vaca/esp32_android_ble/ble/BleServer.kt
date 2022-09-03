@@ -11,7 +11,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.MutableLiveData
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.er2.blepower.Er2BleDataWorker
-import com.viatom.littlePu.er2.view.WaveView
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import java.io.BufferedInputStream
@@ -29,7 +29,6 @@ object BleServer {
     var textTotal=MutableLiveData<String>()
     val bleState=MutableLiveData<String>()
 
-    var drawTask: WaveView.Companion.DrawTask? = null
 
     val er2Graph = MutableLiveData<Boolean>()
 

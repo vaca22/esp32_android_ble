@@ -23,13 +23,7 @@ import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.ble.BleServer.er2Graph
 import com.vaca.esp32_android_ble.databinding.FragmentGraphBinding
 
-import com.viatom.littlePu.er2.view.WaveView
-import java.io.BufferedInputStream
-import java.io.File
-import java.io.FileInputStream
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
-import java.util.*
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
