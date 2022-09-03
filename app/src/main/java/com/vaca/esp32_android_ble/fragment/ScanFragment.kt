@@ -23,8 +23,10 @@ import com.vaca.esp32_android_ble.R
 
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentScanBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Thread.sleep
 
 /**
@@ -117,12 +119,17 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         }
 
 
-        _binding!!.start.setOnClickListener {
-            bindSet2(true)
+        binding.start.setOnClickListener {
+
             scan.start()
+            binding.start.text="扫描中"
+
             BleServer.dataScope.launch {
                 delay(10000)
                 scan.stop()
+                withContext(Dispatchers.Main){
+                    binding.start.text="开始扫描"
+                }
             }
         }
 
