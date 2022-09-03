@@ -52,28 +52,9 @@ class GraphFragment : Fragment() {
 
         _binding = FragmentGraphBinding.inflate(inflater, container, false)
 
-        er2Graph.postValue(true)
-        er2Graph.observe(viewLifecycleOwner) {
-            WaveView.disp = true
-            binding.waveView.invalidate()
-        }
 
-        _binding!!.da.setOnClickListener {
-            Toast(requireContext()).apply {
-                val layout = inflater.inflate(R.layout.toast_layout, null)
-                layout.findViewById<TextView>(R.id.dada).apply {
-                    text = "swv原始文件已保存到\nDownload文件夹"
-                }
-                setGravity(Gravity.CENTER, 0, 0)
-                duration = Toast.LENGTH_LONG
-                setView(layout)
-                show()
-            }
-        }
 
-        WaveView.nn.observe(viewLifecycleOwner){
-            binding.peak.text="Peak Current: \n"+it
-        }
+
 
         return binding.root
 
@@ -90,7 +71,5 @@ class GraphFragment : Fragment() {
         _binding = null
     }
 
-    fun fuck(view: View) {
 
-    }
 }

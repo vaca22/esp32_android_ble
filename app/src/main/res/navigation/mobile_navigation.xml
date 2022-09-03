@@ -9,10 +9,6 @@
         android:id="@+id/show"
         android:name="com.vaca.esp32_android_ble.fragment.GraphFragment"
         />
-    <fragment
-        android:id="@+id/setting"
-        android:name="com.vaca.esp32_android_ble.fragment.SettingFragment"
-        android:label="SettingFragment" />
 
 
     <fragment

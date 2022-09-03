@@ -5,22 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ScanFragment">
-    <TextView
-        android:elevation="10dp"
-        android:textColor="#a0a0a0"
-        android:padding="5dp"
-        android:id="@+id/found"
+    <EditText
+        android:hint="过滤名称"
+        android:id="@+id/name"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="14sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <EditText
+        android:hint="最小rssi:(-70)"
+        android:id="@+id/rssi"
+        android:layout_marginTop="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ble_table"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="130dp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="300dp" />
 
     <TextView
         android:foreground="?selectableItemBackground"

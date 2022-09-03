@@ -6,10 +6,7 @@
         android:id="@+id/show"
         android:icon="@drawable/n1"
         android:title="@string/title_home" />
-    <item
-        android:id="@+id/setting"
-        android:icon="@drawable/n2"
-        android:title="@string/title_dashboard" />
+
 
     <item
         android:id="@+id/connect"

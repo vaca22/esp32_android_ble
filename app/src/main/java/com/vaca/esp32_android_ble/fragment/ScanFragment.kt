@@ -140,9 +140,6 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
 
     override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice,addr:String,rssi:Int) {
-//        if(bluetoothDevice.name.startsWith("DuoEK")==false){
-//            return
-//        }
 
         var z: Int = 0;
         for (ble in bleList) run {
@@ -153,7 +150,6 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         if (z == 0) {
             try {
                 bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
-                binding.found.text="已发现${bleList.size}个蓝牙设备"
                 bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
             }catch (e:Exception){
 
