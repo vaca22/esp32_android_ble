@@ -29,13 +29,13 @@ object DateStringUtil {
     fun timeConvert3x1(s: Long): Long {
         val a= SimpleDateFormat("yyyy-MM-dd").format(s)
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        return sdf.parse(a).time+24*3600*1000L
+        return sdf.parse(a)!!.time+24*3600*1000L
     }
 
     fun timeConvert3x2(s: Long): Long {
         val a= SimpleDateFormat("yyyy-MM-dd").format(s)
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        return sdf.parse(a).time+24*3600*1000L
+        return sdf.parse(a)!!.time+24*3600*1000L
     }
 
     fun timeConvert4(s: Long): String {
@@ -47,27 +47,27 @@ object DateStringUtil {
     }
     fun timeConvert66(date: String): Boolean {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val dd = sdf.parse(date)
+        val dd = sdf.parse(date)!!
         val gg=Date().time
         return gg>dd.time
     }
     fun timeConvert4ReverseX(date: String): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val dd = sdf.parse(date)
+        val dd = sdf.parse(date)!!
         val sdfx = SimpleDateFormat("yyyyMMddHHmmss")
         return sdfx.format(dd)
     }
 
     fun timeConvert4ReverseX2(date: String): String {
         val sdf = SimpleDateFormat("yyyyMMddHHmmss")
-        val dd = sdf.parse(date)
+        val dd = sdf.parse(date)!!
         val sdfx = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return sdfx.format(dd)
     }
 
     fun timeConvert4ReverseX22(date: String): Long {
         val sdf = SimpleDateFormat("yyyyMMddHHmmss")
-        val dd = sdf.parse(date)
+        val dd = sdf.parse(date)!!
 
         return dd.time
     }
@@ -85,7 +85,7 @@ object DateStringUtil {
 
     fun timeConvert4Reverse2(date: String): Long {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        return sdf.parse(date).time
+        return sdf.parse(date)!!.time
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
