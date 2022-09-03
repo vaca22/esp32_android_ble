@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.vaca.esp32_android_ble.PathUtil
 import com.vaca.esp32_android_ble.R
@@ -34,6 +35,10 @@ class DashboardFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    companion object{
+        val currentCmd=MutableLiveData<String>()
+    }
+
 
 
 
@@ -45,6 +50,9 @@ class DashboardFragment : Fragment() {
         _binding = FragmentGraphBinding.inflate(inflater, container, false)
 
 
+        currentCmd.observe(viewLifecycleOwner){
+            binding.cmd.text=it
+        }
 
         binding.x1.setOnClickListener {
             BleServer.ble_worker.sendCmd(BleCmd.activate(true))

@@ -6,6 +6,7 @@ import android.content.Context
 import android.util.Log
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.fragment.DashboardFragment
 
 import com.viatom.littlePu.er2.blepower.NotifyListener
 
@@ -93,7 +94,9 @@ class BleDataWorker {
 
 
     fun sendCmd(bs: ByteArray) {
+
         val gg=byteArray2String(bs)
+        DashboardFragment.currentCmd.postValue(gg)
         Log.e("sendCmd",gg)
         myBleDataManager?.sendCmd(bs)
     }
