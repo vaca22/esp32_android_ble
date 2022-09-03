@@ -28,15 +28,6 @@ class Er2BleDataWorker {
     private var myEr2BleDataManager: Er2BleDataManagerER2? = null
     private var pool: ByteArray? = null
 
-    companion object{
-        var Vbias="600"
-        var Vlow="-200"
-        var Vhigh="600"
-        var Vstep="5"
-        var Vpulse="50"
-        var Tstep="100"
-        val pointData=ArrayList<Pf>()
-    }
 
     fun byteArray2String(byteArray: ByteArray): String {
         var fuc = ""
