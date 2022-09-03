@@ -37,8 +37,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
     companion object{
         val gaga=MutableLiveData<Boolean>()
-        val filterName=MutableLiveData<String>()
         var filterNamex=""
+        var filterRssi=0;
     }
 
 
@@ -172,9 +172,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         })
 
 
-        filterName.observe(viewLifecycleOwner){
-            binding.name.setText(it)
-        }
+
 
         binding.rssi.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -189,7 +187,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                 val a=binding.rssi.text.toString()
                 try {
                     val b=a.toInt()
-                    filterNamex= a.toString()
+                    filterRssi=b;
                     val bleList2: ArrayList<BleBean> = ArrayList()
                     for(gg in bleList){
                         if(gg.rssi>=b){
@@ -199,6 +197,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                     displayList.postValue(bleList2)
 
                 }catch (e:Exception){
+                    filterRssi=0;
                     displayList.postValue(bleList)
                 }
             }
@@ -240,11 +239,18 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         if (z == 0) {
             try {
                 bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
+                var canAdd=true;
                 if(filterNamex.isNotEmpty()){
-                    if(name.contains(filterNamex)){
-
+                    if(name.contains(filterNamex)==false){
+                        canAdd=false
                     }
-                }else{
+                }
+                if(filterRssi!=0){
+                    if(rssi< filterRssi){
+                        canAdd=false
+                    }
+                }
+                if(canAdd){
                     bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
                 }
 
