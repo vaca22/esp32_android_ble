@@ -63,7 +63,6 @@ public abstract class BaseBleManager extends BleManager {
             writeCharacteristic(write_char, bytes,BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE)
                     .split()
                     .done(device -> {
-                    Log.e("senf",device.getName() + " send: "+ new String(bytes));
                     })
                     .enqueue();
         } catch (Exception e) {

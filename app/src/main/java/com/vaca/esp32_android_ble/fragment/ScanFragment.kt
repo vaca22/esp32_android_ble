@@ -148,7 +148,12 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                 delay(10000)
                 scan.stop()
                 withContext(Dispatchers.Main){
-                    binding.start.text="开始扫描"
+                    try {
+                        binding.start.text="开始扫描"
+                    }catch (e:Exception){
+
+                    }
+
                 }
             }
         }

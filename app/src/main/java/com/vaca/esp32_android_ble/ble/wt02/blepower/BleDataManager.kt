@@ -8,9 +8,9 @@ import java.util.*
 
 class BleDataManager(context: Context) : BaseBleManager(context) {
     override fun initUUID() {
-        service_uuid = UUID.fromString("0003cdd0-0000-1000-8000-00805f9b0131")
-        write_uuid = UUID.fromString("0003cdd2-0000-1000-8000-00805f9b0131")
-        notify_uuid = UUID.fromString("0003cdd1-0000-1000-8000-00805f9b0131")
+        service_uuid = UUID.fromString("0000ae00-0000-1000-8000-00805f9b34fb")
+        write_uuid = UUID.fromString("0000ae03-0000-1000-8000-00805f9b34fb")
+        notify_uuid = UUID.fromString("0000ae02-0000-1000-8000-00805f9b34fb")
     }
 
     override fun init() {
@@ -20,7 +20,7 @@ class BleDataManager(context: Context) : BaseBleManager(context) {
 
     override fun initReqQueue() {
         beginAtomicRequestQueue()
-            .add(requestMtu(103) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
+            .add(requestMtu(23) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
                 .with { device: BluetoothDevice?, mtu: Int ->
                     log(
                         Log.INFO,

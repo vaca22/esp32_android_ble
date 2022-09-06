@@ -37,7 +37,7 @@ class BleDataWorker {
     private val comeData = object : NotifyListener {
         override fun onNotify(device: BluetoothDevice, data: Data) {
             data.value?.run {
-
+                Log.e("gaga",this.size.toString())
 
 
             }
