@@ -115,7 +115,7 @@ class BleDataWorker {
             myBleDataManager?.connect(it)
                 ?.useAutoConnect(true)
                 ?.retry(10, 100)
-                ?.timeout(10000)
+                ?.timeout(5000)
                 ?.invalid(object : InvalidRequestCallback {
                     override fun onInvalidRequest() {
                         Log.e("dada1", "dada1")
