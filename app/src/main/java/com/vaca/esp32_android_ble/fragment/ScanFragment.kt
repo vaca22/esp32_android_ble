@@ -276,7 +276,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
         var z: Int = 0;
         for (ble in bleList) run {
-            if (ble.name == bluetoothDevice.name) {
+            if (ble.bluetoothDevice.address == bluetoothDevice.address) {
                 z = 1
             }
         }
