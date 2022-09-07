@@ -23,6 +23,7 @@ import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.adapter.PoctorTopAdapter
 
 import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.ble.BleServer.scan
 import com.vaca.esp32_android_ble.databinding.FragmentScanBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -47,7 +48,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     private val displayList= MutableLiveData<List<BleBean>>()
     private var _binding: FragmentScanBinding? = null
     lateinit var bleViewAdapter: BleViewAdapter
-    val scan = BleScanManager()
+
     var name=""
 
     private val binding get() = _binding!!
@@ -168,8 +169,15 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                     }
                 }
             }else{
-                scan.start()
-                binding.start.text="测试中"
+
+                if(binding.start.text=="测试中"){
+                    scan.stop()
+                    binding.start.text="已停止测试"
+                }else{
+                    scan.start()
+                    binding.start.text="测试中"
+                }
+
             }
 
         }

@@ -7,6 +7,9 @@ import android.util.Log
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.fragment.DashboardFragment
+import com.vaca.esp32_android_ble.fragment.ScanFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
@@ -84,6 +87,9 @@ class BleDataWorker {
             BleServer.bleState.postValue("状态：蓝牙已断开")
 
             BleServer.er2ConnectFlag = false
+            if(ScanFragment.currentMode.value==1){
+                BleServer.scan.start()
+            }
 
 
         }
@@ -124,7 +130,16 @@ class BleDataWorker {
 
                 })
                 ?.done {
+                    Log.e("dada1","xxxx")
+                    if(ScanFragment.currentMode.value==1){
+                        BleServer.ble_worker.sendCmd(BleCmd.enterTest())
+                        BleServer.dataScope.launch {
+                            delay(1000)
+                            disconnect()
+                            BleServer.scan.start()
+                         }
 
+                    }
 
                 }?.fail(object : FailCallback {
                     override fun onRequestFailed(device: BluetoothDevice, status: Int) {
