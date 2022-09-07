@@ -37,6 +37,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         val gaga=MutableLiveData<Boolean>()
         var filterNamex=""
         var filterRssi=0;
+        val currentMode= MutableLiveData<Int>();
     }
 
 
@@ -92,7 +93,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         topAdapter.click=object :PoctorTopAdapter.Click{
             override fun clickItem(position: Int) {
                 Log.e("gaf",position.toString())
-
+                currentMode.postValue(position)
             }
         }
 
@@ -128,6 +129,14 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             }
         })
 
+
+        currentMode.observe(viewLifecycleOwner){
+            if(it==0){
+                binding.start.text="开始扫描"
+            }else{
+                binding.start.text="开始测试"
+            }
+        }
 
 
 
