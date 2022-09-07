@@ -37,6 +37,7 @@ class DashboardFragment : Fragment() {
 
     companion object{
         val currentCmd=MutableLiveData<String>()
+        val receiveCmd=MutableLiveData<String>()
     }
 
 
@@ -51,9 +52,12 @@ class DashboardFragment : Fragment() {
 
 
         currentCmd.observe(viewLifecycleOwner){
-            binding.cmd.text=it
+            binding.cmd.text="发送的指令： "+it
         }
 
+        receiveCmd.observe(viewLifecycleOwner){
+            binding.cmd2.text="接收的指令： "+it
+        }
         binding.x1.setOnClickListener {
             BleServer.ble_worker.sendCmd(BleCmd.activate(true))
         }

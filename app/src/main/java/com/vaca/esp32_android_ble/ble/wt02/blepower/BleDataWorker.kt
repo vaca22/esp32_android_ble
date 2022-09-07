@@ -38,7 +38,7 @@ class BleDataWorker {
         override fun onNotify(device: BluetoothDevice, data: Data) {
             data.value?.run {
                 Log.e("gaga",this.size.toString())
-
+                DashboardFragment.receiveCmd.postValue(byteArray2String(this))
 
             }
         }
