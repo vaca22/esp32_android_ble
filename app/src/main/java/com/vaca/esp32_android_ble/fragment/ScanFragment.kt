@@ -43,6 +43,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
     private lateinit var topAdapter: PoctorTopAdapter
     private val bleList: MutableList<BleBean> = ArrayList()
+    private val connectList: MutableList<BleBean> = ArrayList()
     private val displayList= MutableLiveData<List<BleBean>>()
     private var _binding: FragmentScanBinding? = null
     lateinit var bleViewAdapter: BleViewAdapter
@@ -150,21 +151,27 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
         binding.start.setOnClickListener {
 
-            scan.start()
-            binding.start.text="扫描中"
+            if(currentMode.value!=1){
+                scan.start()
+                binding.start.text="扫描中"
 
-            BleServer.dataScope.launch {
-                delay(10000)
-                scan.stop()
-                withContext(Dispatchers.Main){
-                    try {
-                        binding.start.text="开始扫描"
-                    }catch (e:Exception){
+                BleServer.dataScope.launch {
+                    delay(10000)
+                    scan.stop()
+                    withContext(Dispatchers.Main){
+                        try {
+                            binding.start.text="开始扫描"
+                        }catch (e:Exception){
+
+                        }
 
                     }
-
                 }
+            }else{
+                scan.start()
+                binding.start.text="测试中"
             }
+
         }
 
 
@@ -280,7 +287,16 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                     }
                 }
                 if(canAdd){
-                    bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
+                    if(currentMode.value!=1){
+                        bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
+                    }else{
+                        bleViewAdapter.addDevice(name, bluetoothDevice,addr,rssi)
+                        connectList.add(bleList.last())
+                        scan.stop()
+                        this.name=bluetoothDevice.name
+                        BleServer.connect(bluetoothDevice)
+                    }
+
                 }
 
             }catch (e:Exception){

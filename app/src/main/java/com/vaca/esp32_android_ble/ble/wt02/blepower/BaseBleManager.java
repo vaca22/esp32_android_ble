@@ -9,8 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 
-import com.viatom.littlePu.er2.blepower.NotifyListener;
-
 import java.util.UUID;
 
 import no.nordicsemi.android.ble.BleManager;

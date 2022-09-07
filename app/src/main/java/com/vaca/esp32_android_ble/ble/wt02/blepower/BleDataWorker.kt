@@ -8,8 +8,6 @@ import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.fragment.DashboardFragment
 
-import com.viatom.littlePu.er2.blepower.NotifyListener
-
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.InvalidRequestCallback
 import no.nordicsemi.android.ble.data.Data
