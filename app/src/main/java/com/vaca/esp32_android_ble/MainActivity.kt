@@ -14,9 +14,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tencent.bugly.crashreport.CrashReport
+import com.vaca.esp32_android_ble.ble.BleServer
 
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
 import com.vaca.esp32_android_ble.fragment.ScanFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -65,6 +69,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        BleServer.dataScope.launch {
+            delay(5000)
+            CrashReport.testJavaCrash();
+        }
 
         val requestVoicePermission= registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
