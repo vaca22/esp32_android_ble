@@ -21,7 +21,7 @@ class MainApplication : Application() {
         super.onCreate()
         application = this
         PathUtil.initVar(this)
-        CrashReport.initCrashReport(this, "8abda50a27", true);
+        CrashReport.initCrashReport(this, "6c49fcc61a", true);
     }
 
 
