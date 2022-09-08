@@ -13,7 +13,6 @@ import kotlin.random.Random
 class MainApplication : Application() {
 
     companion object {
-        var mySn: String = "unknown"
         lateinit var application: Application
     }
 
