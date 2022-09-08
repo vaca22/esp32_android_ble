@@ -2,6 +2,7 @@ package com.vaca.esp32_android_ble
 
 import android.app.Application
 import android.util.Log
+import com.tencent.bugly.crashreport.CrashReport
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ class MainApplication : Application() {
         super.onCreate()
         application = this
         PathUtil.initVar(this)
+        CrashReport.initCrashReport(this, "8abda50a27", false);
     }
 
 
