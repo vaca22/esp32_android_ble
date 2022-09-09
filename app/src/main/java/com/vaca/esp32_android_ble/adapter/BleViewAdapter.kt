@@ -41,6 +41,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
             holder.bleName.background=null
         }
         val gaga=mBleData[position]
+        holder.rssi.text="rssi: "+gaga.rssi.toString()
         holder.info.text="信号强度："+gaga.rssi.toString()+"\n"+"MAC地址："+gaga.addr
     }
 
@@ -98,6 +99,7 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
         var bleName: TextView = itemView.findViewById(R.id.ble_name)
         val info:TextView=itemView.findViewById(R.id.info)
         val yes:TextView=itemView.findViewById(R.id.yes)
+        val rssi:TextView=itemView.findViewById(R.id.rssi)
         override fun onClick(view: View) {
             setSpan(layoutPosition)
             dada.visibility=View.VISIBLE
