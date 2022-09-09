@@ -20,6 +20,7 @@ import com.vaca.esp32_android_ble.ble.BleBean
 import com.vaca.esp32_android_ble.ble.BleScanManager
 import com.vaca.esp32_android_ble.adapter.BleViewAdapter
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.SPUtils
 import com.vaca.esp32_android_ble.adapter.PoctorTopAdapter
 
 import com.vaca.esp32_android_ble.ble.BleServer
@@ -39,6 +40,13 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         var filterNamex=""
         var filterRssi=0;
         val currentMode= MutableLiveData<Int>();
+
+
+
+    }
+
+    init {
+
     }
 
 
@@ -79,7 +87,9 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        filterNamex=SPUtils.getInstance().getString("name","");
 
+        filterRssi=SPUtils.getInstance().getInt("rssi",-1000);
         gaga.observe(viewLifecycleOwner){
             if(it){
                 initScan()
@@ -88,6 +98,15 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
 
          myInflater=inflater
         _binding =FragmentScanBinding.inflate(inflater, container, false)
+
+        binding.name.setText(filterNamex);
+        if(filterRssi==-1000){
+            binding.rssi.setText("")
+        }else{
+            binding.rssi.setText(filterRssi.toString())
+        }
+
+
 
         topAdapter = PoctorTopAdapter(requireContext())
 
@@ -203,6 +222,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             override fun afterTextChanged(s: Editable?) {
                 val a=binding.name.text.toString()
                 filterNamex= a.toString()
+                SPUtils.getInstance().put("name", filterNamex);
+
                 val bleList2: ArrayList<BleBean> = ArrayList()
                 for(gg in bleList){
                     if(gg.name.contains(a)){
@@ -234,6 +255,8 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                     if(b>0){
                         b=-b
                     }
+
+                    SPUtils.getInstance().put("rssi",b);
                     filterRssi=b;
                     val bleList2: ArrayList<BleBean> = ArrayList()
                     for(gg in bleList){
