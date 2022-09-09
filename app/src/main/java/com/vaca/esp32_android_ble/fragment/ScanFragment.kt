@@ -230,7 +230,10 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             override fun afterTextChanged(s: Editable?) {
                 val a=binding.rssi.text.toString()
                 try {
-                    val b=a.toInt()
+                    var b=a.toInt()
+                    if(b>0){
+                        b=-b
+                    }
                     filterRssi=b;
                     val bleList2: ArrayList<BleBean> = ArrayList()
                     for(gg in bleList){
