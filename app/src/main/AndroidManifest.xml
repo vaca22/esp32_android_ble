@@ -19,9 +19,9 @@
         android:largeHeap="true"
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:icon="@drawable/bt"
+        android:icon="@drawable/w"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/bt"
+        android:roundIcon="@drawable/w"
         android:supportsRtl="true"
         android:theme="@style/Theme.Esp32_android_ble"
         tools:targetApi="31">
