@@ -222,7 +222,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
             override fun afterTextChanged(s: Editable?) {
                 val a=binding.name.text.toString()
                 filterNamex= a.toString()
-                SPUtils.getInstance().put("name", filterNamex);
+
 
                 val bleList2: ArrayList<BleBean> = ArrayList()
                 for(gg in bleList){
@@ -256,7 +256,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                         b=-b
                     }
 
-                    SPUtils.getInstance().put("rssi",b);
+
                     filterRssi=b;
                     val bleList2: ArrayList<BleBean> = ArrayList()
                     for(gg in bleList){
@@ -296,6 +296,11 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
     }
 
 
+    override fun onPause() {
+        SPUtils.getInstance().put("name", filterNamex);
+        SPUtils.getInstance().put("rssi", filterRssi);
+        super.onPause()
+    }
 
 
     override fun scanReturn(name: String, bluetoothDevice: BluetoothDevice,addr:String,rssi:Int) {
