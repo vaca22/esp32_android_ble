@@ -316,7 +316,7 @@ class ScanFragment : Fragment(), BleViewAdapter.ItemClickListener,   BleScanMana
                 bleList.add(BleBean(name, bluetoothDevice,addr,rssi))
                 var canAdd=true;
                 if(filterNamex.isNotEmpty()){
-                    if(name.contains(filterNamex)==false){
+                    if(!name.contains(filterNamex)){
                         canAdd=false
                     }
                 }
