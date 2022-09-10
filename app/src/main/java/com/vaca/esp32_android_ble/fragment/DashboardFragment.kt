@@ -59,42 +59,42 @@ class DashboardFragment : Fragment() {
             binding.cmd2.text="接收的指令： "+it
         }
         binding.x1.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.activateX(true))
+            BleServer.ble_worker.sendCmd(BleCmd.activate(true))
         }
 
         binding.x11.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.activateX(false))
+            BleServer.ble_worker.sendCmd(BleCmd.activate(false))
         }
         binding.x2.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.syncDataX())
+            BleServer.ble_worker.sendCmd(BleCmd.syncData())
         }
 
         binding.x3.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.clearDataX())
+            BleServer.ble_worker.sendCmd(BleCmd.clearData())
         }
 
         binding.x4.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.enterTestX())
+            BleServer.ble_worker.sendCmd(BleCmd.enterTest())
         }
 
         binding.x5.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.getBatX())
+            BleServer.ble_worker.sendCmd(BleCmd.getBat())
         }
 
         binding.x6.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.changeModeX(1))
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(1))
         }
 
         binding.x61.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.changeModeX(2))
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(2))
         }
 
         binding.x62.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.changeModeX(3))
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(3))
         }
 
         binding.x63.setOnClickListener {
-            BleServer.ble_worker.sendCmd(BleCmd.changeModeX(4))
+            BleServer.ble_worker.sendCmd(BleCmd.changeMode(4))
         }
 
 
