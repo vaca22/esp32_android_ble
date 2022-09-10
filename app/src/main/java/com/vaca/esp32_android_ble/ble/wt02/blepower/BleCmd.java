@@ -7,6 +7,7 @@ public class BleCmd {
 
     private static int ACTIVATE = 0xA1;
     private static int SYNCDATA = 0xA4;
+    private static int CLEARDATA = 0xA7;
     private static int ENTERTEST = 0xA5;
     private static int GETBAT = 0xA2;
     private static int CHANGEMODE = 0xA3;
@@ -14,7 +15,7 @@ public class BleCmd {
     private static int seqNo = 0;
 
     private static void addNo() {
-        seqNo++;
+      //  seqNo++;
         if (seqNo >= 255) {
             seqNo = 0;
         }
@@ -39,6 +40,29 @@ public class BleCmd {
         return cmd;
     }
 
+    public static byte[] activateX(boolean b) {
+        int len = 1;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB1;
+        cmd[2] = (byte) ~0xB1;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 1;
+        if(b){
+            cmd[5] = (byte) 1;
+        }else{
+            cmd[5] = (byte) 0;
+        }
+        cmd[6] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
+
+
+
+
     public static byte[] syncData() {
         int len = 1;
         byte[] cmd = new byte[6 + len];
@@ -53,13 +77,28 @@ public class BleCmd {
         return cmd;
     }
 
+    public static byte[] syncDataX() {
+        int len = 1;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB4;
+        cmd[2] = (byte) ~0xB4;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 1;
+        cmd[5] = (byte) 0;
+        cmd[6] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
 
     public static byte[] clearData() {
         int len = 1;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
-        cmd[1] = (byte) SYNCDATA;
-        cmd[2] = (byte) ~SYNCDATA;
+        cmd[1] = (byte) CLEARDATA;
+        cmd[2] = (byte) ~CLEARDATA;
         cmd[3] = (byte) seqNo;
         cmd[4] = (byte) 1;
         cmd[5] = (byte) 1;
@@ -67,6 +106,24 @@ public class BleCmd {
         addNo();
         return cmd;
     }
+
+
+
+    public static byte[] clearDataX() {
+        int len = 1;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB7;
+        cmd[2] = (byte) ~0xB7;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 1;
+        cmd[5] = (byte) 1;
+        cmd[6] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
 
     public static byte[] enterTest() {
         int len = 0;
@@ -81,6 +138,21 @@ public class BleCmd {
         return cmd;
     }
 
+
+    public static byte[] enterTestX() {
+        int len = 0;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB5;
+        cmd[2] = (byte) ~0xB5;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
     public static byte[] getBat() {
         int len = 0;
         byte[] cmd = new byte[6 + len];
@@ -94,12 +166,44 @@ public class BleCmd {
         return cmd;
     }
 
+
+    public static byte[] getBatX() {
+        int len = 0;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB2;
+        cmd[2] = (byte) ~0xB2;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
+
+
     public static byte[] changeMode(int a) {
         int len = 1;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) CHANGEMODE;
         cmd[2] = (byte) ~CHANGEMODE;
+        cmd[3] = (byte) seqNo;
+        cmd[4] = (byte) 1;
+        cmd[5] = (byte) a;
+        cmd[6] = calCRC8(cmd);
+        addNo();
+        return cmd;
+    }
+
+
+    public static byte[] changeModeX(int a) {
+        int len = 1;
+        byte[] cmd = new byte[6 + len];
+        cmd[0] = (byte) 0xCA;
+        cmd[1] = (byte) 0xB3;
+        cmd[2] = (byte) ~0xB3;
         cmd[3] = (byte) seqNo;
         cmd[4] = (byte) 1;
         cmd[5] = (byte) a;

@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.vaca.esp32_android_ble"
         minSdk 24
-        targetSdk 31
+        targetSdk 29
         versionCode 1
         versionName "1.0"
 
