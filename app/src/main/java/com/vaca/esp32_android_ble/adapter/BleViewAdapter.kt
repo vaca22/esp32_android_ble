@@ -48,9 +48,9 @@ class BleViewAdapter(context: Context) : RecyclerView.Adapter<BleViewAdapter.Vie
     fun addDevice(name: String?, bluetoothDevice: BluetoothDevice?,mac:String,rssi:Int) {
         mBleData.add(BleBean(name!!, bluetoothDevice!!,mac,rssi))
 
-        if(bleLock==false){
-            notifyDataSetChanged()
-        }
+
+        notifyDataSetChanged()
+
 
     }
 
