@@ -64,29 +64,27 @@ public class BleCmd {
 
 
     public static byte[] syncData() {
-        int len = 1;
+        int len = 0;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) SYNCDATA;
         cmd[2] = (byte) ~SYNCDATA;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 1;
-        cmd[5] = (byte) 0;
-        cmd[6] = calCRC8(cmd);
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
         addNo();
         return cmd;
     }
 
     public static byte[] syncDataX() {
-        int len = 1;
+        int len = 0;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) 0xB4;
         cmd[2] = (byte) ~0xB4;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 1;
-        cmd[5] = (byte) 0;
-        cmd[6] = calCRC8(cmd);
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
         addNo();
         return cmd;
     }
@@ -94,15 +92,14 @@ public class BleCmd {
 
 
     public static byte[] clearData() {
-        int len = 1;
+        int len = 0;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) CLEARDATA;
         cmd[2] = (byte) ~CLEARDATA;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 1;
-        cmd[5] = (byte) 1;
-        cmd[6] = calCRC8(cmd);
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
         addNo();
         return cmd;
     }
@@ -110,15 +107,14 @@ public class BleCmd {
 
 
     public static byte[] clearDataX() {
-        int len = 1;
+        int len = 0;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) 0xB7;
         cmd[2] = (byte) ~0xB7;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 1;
-        cmd[5] = (byte) 1;
-        cmd[6] = calCRC8(cmd);
+        cmd[4] = (byte) 0;
+        cmd[5] = calCRC8(cmd);
         addNo();
         return cmd;
     }
