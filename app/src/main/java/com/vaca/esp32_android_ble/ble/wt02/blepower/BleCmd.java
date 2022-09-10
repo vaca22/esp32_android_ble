@@ -77,14 +77,22 @@ public class BleCmd {
     }
 
     public static byte[] syncDataX() {
-        int len = 0;
+        int len = 8;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) 0xB4;
         cmd[2] = (byte) ~0xB4;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 0;
-        cmd[5] = calCRC8(cmd);
+        cmd[4] = (byte) len;
+        cmd[5] = (byte) 1;
+        cmd[6] = (byte) 2;
+        cmd[7] = (byte) 3;
+        cmd[8] = (byte) 4;
+        cmd[9] = (byte) 5;
+        cmd[10] = (byte) 6;
+        cmd[11] = (byte) 7;
+        cmd[12] = (byte) 8;
+        cmd[13] = calCRC8(cmd);
         addNo();
         return cmd;
     }
@@ -164,14 +172,15 @@ public class BleCmd {
 
 
     public static byte[] getBatX() {
-        int len = 0;
+        int len = 1;
         byte[] cmd = new byte[6 + len];
         cmd[0] = (byte) 0xCA;
         cmd[1] = (byte) 0xB2;
         cmd[2] = (byte) ~0xB2;
         cmd[3] = (byte) seqNo;
-        cmd[4] = (byte) 0;
-        cmd[5] = calCRC8(cmd);
+        cmd[4] = (byte) 1;
+        cmd[5] = (byte) 0x4C;
+        cmd[6] = calCRC8(cmd);
         addNo();
         return cmd;
     }
