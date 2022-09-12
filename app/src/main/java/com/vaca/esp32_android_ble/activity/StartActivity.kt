@@ -7,31 +7,74 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.Window
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.vaca.esp32_android_ble.MainActivity
-
 import com.vaca.esp32_android_ble.databinding.ActivityStartBinding
-import kotlinx.coroutines.*
 
 class StartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStartBinding
+    private var requestBluetooth =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                //granted
+            } else {
+                //deny
+            }
+        }
+
+    private val requestMultiplePermissions =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            permissions.entries.forEach {
+                Log.e("test006", "${it.key} = ${it.value}")
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val requestVoicePermission = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) {
+
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            if ((ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH_SCAN
+                ) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                ) != PackageManager.PERMISSION_GRANTED)
+            ) {
+                Log.e("gaga", "gaga1")
+
+                requestVoicePermission.launch(
+                    arrayOf(
+                        Manifest.permission.BLUETOOTH_SCAN,
+                        Manifest.permission.BLUETOOTH_CONNECT
+                    )
+                )
+
+
+            } else {
+                Log.e("gaga", "gaga122")
+            }
+        }
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
         requestPermission()
 
         binding.aa.setOnClickListener {
-            val intent=Intent(this@StartActivity, MainActivity::class.java)
+            val intent = Intent(this@StartActivity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
