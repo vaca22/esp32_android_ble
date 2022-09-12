@@ -42,7 +42,7 @@ class StartActivity : AppCompatActivity() {
         val requestVoicePermission = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
-
+            requestPermission()
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 
@@ -65,13 +65,16 @@ class StartActivity : AppCompatActivity() {
 
 
             } else {
+                requestPermission()
                 Log.e("gaga", "gaga122")
             }
+        }else{
+            requestPermission()
         }
 
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        requestPermission()
+
 
         binding.aa.setOnClickListener {
             val intent = Intent(this@StartActivity, MainActivity::class.java)
