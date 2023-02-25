@@ -13,6 +13,7 @@ import com.vaca.esp32_android_ble.ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
 import org.json.JSONObject
 import java.lang.Exception
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -42,30 +43,30 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
+        Timer().schedule(xx, Date(),50)
+//        bleStu.observe(viewLifecycleOwner){
+//            binding.bleStatus.text=it
+//        }
 
-        bleStu.observe(viewLifecycleOwner){
-            binding.bleStatus.text=it
-        }
-
-        binding.upload.setOnClickListener {
-            val x=JSONObject()
-            x.put("x1",binding.x1.text.toString())
-            x.put("x2",binding.x2.text.toString())
-            x.put("x3",binding.x3.text.toString())
-            x.put("x4",binding.x4.text.toString())
-            x.put("x5",binding.x5.text.toString())
-
-
-            val content=x.toString()
-
-            try {
-                BleServer.worker.sendCmd(content.toByteArray())
-            }catch (e:Exception){
-
-            }
-
-            Log.e("good","uyes"+content+"   "+content.length.toString())
-        }
+//        binding.upload.setOnClickListener {
+//            val x=JSONObject()
+//            x.put("x1",binding.x1.text.toString())
+//            x.put("x2",binding.x2.text.toString())
+//            x.put("x3",binding.x3.text.toString())
+//            x.put("x4",binding.x4.text.toString())
+//            x.put("x5",binding.x5.text.toString())
+//
+//
+//            val content=x.toString()
+//
+//            try {
+//                BleServer.worker.sendCmd(content.toByteArray())
+//            }catch (e:Exception){
+//
+//            }
+//
+//            Log.e("good","uyes"+content+"   "+content.length.toString())
+//        }
 
 
 
@@ -84,5 +85,45 @@ class SecondFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    val xx=RtDataTask()
+
+    inner class RtDataTask() : TimerTask() {
+        override fun run() {
+            val bb=ByteArray(12){
+                0x32.toByte()
+            }
+
+            var cc=binding.seekBar1.progress;
+            Log.e("fuck",cc.toString())
+            bb[0]=(cc%256).toByte()
+            bb[1]=(cc/256).toByte()
+
+            cc=binding.seekBar2.progress;
+            bb[2]=(cc%256).toByte()
+            bb[3]=(cc/256).toByte()
+
+
+            cc=binding.seekBar3.progress;
+            bb[4]=(cc%256).toByte()
+            bb[5]=(cc/256).toByte()
+
+
+            cc=binding.seekBar4.progress;
+            bb[6]=(cc%256).toByte()
+            bb[7]=(cc/256).toByte()
+
+
+            cc=binding.seekBar5.progress;
+            bb[8]=(cc%256).toByte()
+            bb[9]=(cc/256).toByte()
+
+            cc=binding.seekBar5.progress;
+            bb[10]=(cc%256).toByte()
+            bb[11]=(cc/256).toByte()
+
+            BleServer.worker.sendCmd(bb)
+        }
     }
 }
