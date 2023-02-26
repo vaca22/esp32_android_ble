@@ -373,7 +373,7 @@ object XeBleCmd {
         return workModeCmd(0.toByte())
     }
 
-
+//  it is very crucial for the car control gimble
     fun mode2Cmd(): ByteArray {
         return workModeCmd(64)
     }
