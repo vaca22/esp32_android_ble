@@ -149,12 +149,12 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
             writeData(cmd)
         }
         binding.button8.setOnClickListener {
-            val cmd = XeBleCmd.readControlSettingCmd()
+            val cmd = XeBleCmd.mode1Cmd()
             Log.e("fuck","cmd leng "+cmd.size)
             writeData(cmd)
         }
         binding.button9.setOnClickListener {
-            val cmd = XeBleCmd.getSystemStatus()
+            val cmd = XeBleCmd.mode2Cmd()
             Log.e("fuck","cmd leng "+cmd.size)
             writeData(cmd)
         }
@@ -172,7 +172,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
                 val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
                 val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
                 Log.e("gaga","$x $y")
-                val cmd = XeBleCmd.followCenterCmd(0,y,100)
+                val cmd = XeBleCmd.followCenterCmd(x,y,50)
                 Log.e("fuck","cmd leng "+cmd.size)
                 writeData(cmd)
 
