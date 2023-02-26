@@ -11,9 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.example.smart_xe_gimble.xe.XeBleCmd
-import com.example.smart_xe_gimble.xe.XeBleManager
 import com.example.smart_xe_gimble.xe.XeBleManager.dataScope
 import com.example.smart_xe_gimble.xe.XeBleUtils
 import com.vaca.esp32_android_ble.MainApplication
@@ -31,6 +29,8 @@ import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.data.Data
 import java.lang.reflect.InvocationTargetException
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -59,8 +59,8 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         val esp32Device=bluetoothAdapter.getRemoteDevice("C8:C9:A3:F9:33:8A")
         if(esp32Device!=null){
             esp32BleDataManager= Esp32BleDataManager(requireActivity())
-            esp32BleDataManager.connect(esp32Device)
-                .useAutoConnect(true)
+            esp32BleDataManager?.connect(esp32Device)
+                ?.useAutoConnect(true)
                 ?.timeout(10000)
                 ?.retry(10, 200)
                 ?.done {
@@ -113,7 +113,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        Timer().schedule(carRunTask, Date(),50)
 
         haveBlePrepare.observe(viewLifecycleOwner){
             if(it){
@@ -133,7 +133,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     }
     
     lateinit var xeBleDataManager: XeBleDataManager
-    lateinit var esp32BleDataManager: Esp32BleDataManager
+    var esp32BleDataManager: Esp32BleDataManager?=null
     
     fun writeData(b:ByteArray){
         xeBleDataManager.sendCmd(b)
@@ -143,23 +143,35 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
 
         binding.button10.setOnClickListener {
             val cmd = XeBleCmd.returnCenter(true)
-            Log.e("fuck","cmd leng "+cmd.size)
             writeData(cmd)
         }
 
         binding.ga1.setOnJoystickMoveListener(object: JoystickView.OnJoystickMoveListener {
             override fun onValueChanged(angle: Int, power: Int, direction: Int) {
-                Log.e("fuck","$angle $power $direction")
                 val tAngle = -angle+90
                 val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
                 val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
-                Log.e("gaga","$x $y")
-                val cmd = XeBleCmd.followCenterCmd(x,y,50)
-                Log.e("fuck","cmd leng "+cmd.size)
+                val cmd = XeBleCmd.followCenterCmd(x,y,200)
                 writeData(cmd)
-
             }
+        }, 100)
 
+        binding.leftControl.setOnJoystickMoveListener(object: JoystickView.OnJoystickMoveListener {
+            override fun onValueChanged(angle: Int, power: Int, direction: Int) {
+                val tAngle = -angle+90
+                val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
+                val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
+                channel1=(1000+y*1.5).toInt()
+            }
+        }, 100)
+
+        binding.rightControl.setOnJoystickMoveListener(object: JoystickView.OnJoystickMoveListener {
+            override fun onValueChanged(angle: Int, power: Int, direction: Int) {
+                val tAngle = -angle+90
+                val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
+                val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
+                channel2=1000+x*5
+            }
         }, 100)
 
     }
@@ -182,7 +194,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
                 Log.i("fuck", "XE连接成功了.>>.....>>>>")
                 dataScope.launch {
                     delay(500)
-                    val cmd = XeBleCmd.mode2Cmd()
+                    val cmd = XeBleCmd.mode1Cmd()
                     writeData(cmd)
                     delay(100)
                     val cmd2 = XeBleCmd.returnCenter(true)
@@ -233,4 +245,50 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
     }
 
+
+    var channel1=1000;
+    var channel2=1000;
+    private val carRunTask=RtDataTask()
+
+    inner class RtDataTask() : TimerTask() {
+        override fun run() {
+            val bb=ByteArray(12){
+                0x32.toByte()
+            }
+
+            var control1k2k=channel1
+            bb[0]=(control1k2k%256).toByte()
+            bb[1]=(control1k2k/256).toByte()
+
+            control1k2k=channel2
+            bb[2]=(control1k2k%256).toByte()
+            bb[3]=(control1k2k/256).toByte()
+
+
+            control1k2k=1000;
+            bb[4]=(control1k2k%256).toByte()
+            bb[5]=(control1k2k/256).toByte()
+
+
+            control1k2k=1000;
+            bb[6]=(control1k2k%256).toByte()
+            bb[7]=(control1k2k/256).toByte()
+
+
+            control1k2k=1000;
+            bb[8]=(control1k2k%256).toByte()
+            bb[9]=(control1k2k/256).toByte()
+
+            control1k2k=1000;
+            bb[10]=(control1k2k%256).toByte()
+            bb[11]=(control1k2k/256).toByte()
+
+            esp32BleDataManager?.sendCmd(bb)
+        }
+    }
+
+    override fun onDestroy() {
+        carRunTask.cancel()
+        super.onDestroy()
+    }
 }
