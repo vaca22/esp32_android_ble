@@ -3,8 +3,6 @@ package com.vaca.esp32_android_ble
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,12 +11,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import com.vaca.esp32_android_ble.bean.HavePermission
 import com.vaca.esp32_android_ble.databinding.ActivityMainBinding
 import com.vaca.esp32_android_ble.fragment.FirstFragment
-import org.greenrobot.eventbus.EventBus
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.RequestMultiplePermissions()
         ) {
             val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION)!!
-            FirstFragment.gaga.postValue(yes)
+            FirstFragment.haveBlePrepare.postValue(yes)
         }
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -53,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
             ))
         }else{
-            FirstFragment.gaga.postValue(true)
+            FirstFragment.haveBlePrepare.postValue(true)
         }
 
 

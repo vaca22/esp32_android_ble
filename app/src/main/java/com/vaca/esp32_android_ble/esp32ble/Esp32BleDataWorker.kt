@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble.ble
+package com.vaca.esp32_android_ble.esp32ble
 
 
 import android.bluetooth.BluetoothDevice
@@ -10,18 +10,16 @@ import com.vaca.esp32_android_ble.fragment.SecondFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.observer.ConnectionObserver
-import java.lang.Thread.sleep
 
-class BleDataWorker {
+class Esp32BleDataWorker {
     private var pool: ByteArray? = null
     private val fileChannel = Channel<Int>(Channel.CONFLATED)
     private val connectChannel = Channel<String>(Channel.CONFLATED)
-    var myBleDataManager: BleDataManager? = null
+    var myEsp32BleDataManager: Esp32BleDataManager? = null
     private val dataScope = CoroutineScope(Dispatchers.IO)
     private val mutex = Mutex()
 
@@ -46,7 +44,7 @@ class BleDataWorker {
         var success: Boolean = false
     )
 
-    private val comeData = object : BleDataManager.OnNotifyListener {
+    private val comeData = object : Esp32BleDataManager.OnNotifyListener {
         override fun onNotify(device: BluetoothDevice?, data: Data?) {
             data?.value?.apply {
                 val size = this.size
@@ -58,7 +56,7 @@ class BleDataWorker {
 
 
     fun sendCmd(bs: ByteArray) {
-        myBleDataManager?.sendCmd(bs)
+        myEsp32BleDataManager?.sendCmd(bs)
     }
 
     private val connectState = object : ConnectionObserver {
@@ -93,7 +91,7 @@ class BleDataWorker {
 
     fun initWorker(context: Context, bluetoothDevice: BluetoothDevice?) {
         bluetoothDevice?.let {
-            myBleDataManager?.connect(it)
+            myEsp32BleDataManager?.connect(it)
                 ?.useAutoConnect(true)
                 ?.timeout(10000)
                 ?.retry(10, 200)
@@ -116,14 +114,14 @@ class BleDataWorker {
     }
 
     fun disconnect() {
-        myBleDataManager?.disconnect()?.enqueue()
+        myEsp32BleDataManager?.disconnect()?.enqueue()
 
     }
 
     init {
-        myBleDataManager = BleDataManager(MainApplication.application)
-        myBleDataManager?.setNotifyListener(comeData)
-        myBleDataManager?.setConnectionObserver(connectState)
+        myEsp32BleDataManager = Esp32BleDataManager(MainApplication.application)
+        myEsp32BleDataManager?.setNotifyListener(comeData)
+        myEsp32BleDataManager?.setConnectionObserver(connectState)
     }
 
 }

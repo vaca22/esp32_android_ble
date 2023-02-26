@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble.ble
+package com.vaca.esp32_android_ble.esp32ble
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -11,7 +11,7 @@ import android.content.Context
 import android.util.Log
 
 
-class BleScanManager {
+class Esp32BleScanManager {
     interface Scan {
         fun scanReturn(name: String, bluetoothDevice: BluetoothDevice)
     }

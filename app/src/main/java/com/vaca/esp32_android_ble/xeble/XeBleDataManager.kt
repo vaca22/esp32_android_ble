@@ -1,4 +1,4 @@
-package com.vaca.esp32_android_ble.ble
+package com.vaca.esp32_android_ble.xeble
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
@@ -9,7 +9,7 @@ import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.data.Data
 import java.util.*
 
-class BleDataManager(context: Context) : BleManager(context) {
+class XeBleDataManager(context: Context) : BleManager(context) {
     private var write_char: BluetoothGattCharacteristic? = null
     private var notify_char: BluetoothGattCharacteristic? = null
     private var listener: OnNotifyListener? = null
@@ -76,7 +76,7 @@ class BleDataManager(context: Context) : BleManager(context) {
             // You may enqueue multiple operations. A queue ensures that all operations are
             // performed one after another, but it is not required.
             beginAtomicRequestQueue()
-                .add(requestMtu(203) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
+                .add(requestMtu(122) // Remember, GATT needs 3 bytes extra. This will allow packet size of 244 bytes.
                     .with { _: BluetoothDevice?, mtu: Int ->
                        Log.e(
                            " Log.INFO",
@@ -109,8 +109,8 @@ class BleDataManager(context: Context) : BleManager(context) {
     }
 
     companion object {
-        val service_uuid: UUID = UUID.fromString("59462f12-9543-9999-12c8-58b459a2712d")
-        val write_uuid: UUID = UUID.fromString("5c3a659e-897e-45e1-b016-007107c96df6")
-        val notify_uuid: UUID = UUID.fromString("5c3a659e-897e-45e1-b016-007107c96df6")
+        val service_uuid: UUID = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb")
+        val write_uuid: UUID = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb")
+        val notify_uuid: UUID = UUID.fromString("0000ffe2-0000-1000-8000-00805f9b34fb")
     }
 }

@@ -7,12 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
-import com.vaca.esp32_android_ble.R
-import com.vaca.esp32_android_ble.ble.BleServer
+import com.vaca.esp32_android_ble.esp32ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentSecondBinding
-import org.json.JSONObject
-import java.lang.Exception
 import java.util.*
 
 /**
@@ -41,7 +37,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
-        Timer().schedule(xx, Date(),50)
+      //  Timer().schedule(carRunTask, Date(),50)
         return binding.root
 
     }
@@ -57,7 +53,7 @@ class SecondFragment : Fragment() {
         _binding = null
     }
 
-    val xx=RtDataTask()
+    private val carRunTask=RtDataTask()
 
     inner class RtDataTask() : TimerTask() {
         override fun run() {
