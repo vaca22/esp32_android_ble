@@ -320,13 +320,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     var mPeer: Peer? = null
     fun initWebrtc(){
         mEglBase = EglBase.create()
-//        val localView=binding.localVideoView
-//        localView!!.init(mEglBase.eglBaseContext, null)
-//        localView!!.keepScreenOn = true
-//        localView!!.setMirror(true)
-//        localView!!.setZOrderMediaOverlay(true)
-//        localView!!.setScalingType(RendererCommon.ScalingType.SCALE_ASPECT_FIT)
-//        localView!!.setEnableHardwareScaler(false)
+
 
         mAudioManager = (requireActivity().getSystemService(AppCompatActivity.AUDIO_SERVICE) as AudioManager)
         mAudioManager.mode = AudioManager.MODE_IN_CALL
@@ -539,7 +533,15 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
             val data: ByteBuffer = p0?.data ?: return
             val bytes = ByteArray(data.capacity())
             data.get(bytes)
-            Log.e("fuck",String(bytes))
+//            Log.e("fuck",String(bytes))
+            if(bytes.size==4){
+                channel1=(bytes[0].toInt()*1.5+1000).toInt()
+                channel2=bytes[1].toInt()*5+1000
+                val x=bytes[2].toInt()
+                val y=bytes[3].toInt()
+                val cmd = XeBleCmd.followCenterCmd(x,y,200)
+                writeData(cmd)
+            }
         }
 
 
