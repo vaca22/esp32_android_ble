@@ -172,7 +172,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
                 val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
                 val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
                 Log.e("gaga","$x $y")
-                val cmd = XeBleCmd.followCenterCmd(x,y,2000)
+                val cmd = XeBleCmd.followCenterCmd(0,y,100)
                 Log.e("fuck","cmd leng "+cmd.size)
                 writeData(cmd)
 
