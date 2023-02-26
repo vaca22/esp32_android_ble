@@ -40,38 +40,8 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
-
         Timer().schedule(xx, Date(),50)
-//        bleStu.observe(viewLifecycleOwner){
-//            binding.bleStatus.text=it
-//        }
-
-//        binding.upload.setOnClickListener {
-//            val x=JSONObject()
-//            x.put("x1",binding.x1.text.toString())
-//            x.put("x2",binding.x2.text.toString())
-//            x.put("x3",binding.x3.text.toString())
-//            x.put("x4",binding.x4.text.toString())
-//            x.put("x5",binding.x5.text.toString())
-//
-//
-//            val content=x.toString()
-//
-//            try {
-//                BleServer.worker.sendCmd(content.toByteArray())
-//            }catch (e:Exception){
-//
-//            }
-//
-//            Log.e("good","uyes"+content+"   "+content.length.toString())
-//        }
-
-
-
-
-
         return binding.root
 
     }
