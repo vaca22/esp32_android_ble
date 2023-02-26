@@ -32,6 +32,7 @@
         android:theme="@style/Theme.Esp32_android_ble"
         tools:targetApi="31">
         <activity
+            android:screenOrientation="landscape"
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"

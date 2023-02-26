@@ -1,5 +1,6 @@
 package com.vaca.esp32_android_ble.fragment
 
+import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.vaca.esp32_android_ble.adapter.BleViewAdapter
 import com.vaca.esp32_android_ble.R
 import com.vaca.esp32_android_ble.esp32ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
+import com.vaca.esp32_android_ble.esp32ble.Esp32BleDataManager
 import com.vaca.esp32_android_ble.view.JoystickView
 import com.vaca.esp32_android_ble.xeble.XeBleDataManager
 import no.nordicsemi.android.ble.callback.FailCallback
@@ -46,10 +48,31 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @SuppressLint("MissingPermission")
     fun getXeBtDevice(): String? {
         //获取蓝牙适配器
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
+        val esp32Device=bluetoothAdapter.getRemoteDevice("C8:C9:A3:F9:33:8A")
+        if(esp32Device!=null){
+            esp32BleDataManager= Esp32BleDataManager(requireActivity())
+            esp32BleDataManager.connect(esp32Device)
+                .useAutoConnect(true)
+                ?.timeout(10000)
+                ?.retry(10, 200)
+                ?.done {
+                    Log.i("fuck", "esp32连接成功了.>>.....>>>>")
+                }?.fail(object : FailCallback {
+                    override fun onRequestFailed(device: BluetoothDevice, status: Int) {
+
+                    }
+
+                })
+                ?.enqueue()
+            Log.e("fuck","esp32Device yes")
+        }else{
+            Log.e("fuck","esp32Device no")
+        }
         //得到已匹配的蓝牙设备列表
         val bondedDevices = bluetoothAdapter.bondedDevices
         if (bondedDevices != null && bondedDevices.size > 0) {
@@ -82,7 +105,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         return null
     }
 
-
+// C8:C9:A3:F9:33:8A
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,10 +120,8 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-//        binding.bleTable.layoutManager = GridLayoutManager(requireContext(), 2);
-//        bleViewAdapter = BleViewAdapter(requireContext())
-//        binding.bleTable.adapter = bleViewAdapter
-//        bleViewAdapter.setClickListener(this)
+
+
 
 
 
@@ -109,6 +130,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     }
     
     lateinit var xeBleDataManager: XeBleDataManager
+    lateinit var esp32BleDataManager: Esp32BleDataManager
     
     fun writeData(b:ByteArray){
         xeBleDataManager.sendCmd(b)
