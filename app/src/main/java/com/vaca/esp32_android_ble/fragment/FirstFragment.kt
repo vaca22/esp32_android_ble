@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.smart_xe_gimble.xe.XeBleCmd
 import com.example.smart_xe_gimble.xe.XeBleManager
+import com.example.smart_xe_gimble.xe.XeBleManager.dataScope
 import com.example.smart_xe_gimble.xe.XeBleUtils
 import com.vaca.esp32_android_ble.MainApplication
 import com.vaca.esp32_android_ble.bean.BleBean
@@ -25,6 +26,8 @@ import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 import com.vaca.esp32_android_ble.esp32ble.Esp32BleDataManager
 import com.vaca.esp32_android_ble.view.JoystickView
 import com.vaca.esp32_android_ble.xeble.XeBleDataManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.data.Data
 import java.lang.reflect.InvocationTargetException
@@ -137,49 +140,6 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     }
     
     fun initButton(){
-        binding.button.setOnClickListener {
-            writeData(XeBleCmd.getBatteryLevel())
-        }
-        binding.button2.setOnClickListener {
-            val cmd = XeBleCmd.followCenterCmd(-2000,20,10)
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button3.setOnClickListener {
-            val cmd = XeBleCmd.shakeHand2()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button4.setOnClickListener {
-            val cmd = XeBleCmd.shakeHand3()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button5.setOnClickListener {
-            val cmd = XeBleCmd.shakeHand4()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button6.setOnClickListener {
-            val cmd = XeBleCmd.mode1Cmd()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button7.setOnClickListener {
-            val cmd = XeBleCmd.attitudeOffsetReadCmd()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button8.setOnClickListener {
-            val cmd = XeBleCmd.mode1Cmd()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
-        binding.button9.setOnClickListener {
-            val cmd = XeBleCmd.mode2Cmd()
-            Log.e("fuck","cmd leng "+cmd.size)
-            writeData(cmd)
-        }
 
         binding.button10.setOnClickListener {
             val cmd = XeBleCmd.returnCenter(true)
@@ -220,6 +180,14 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
             ?.retry(10, 200)
             ?.done {
                 Log.i("fuck", "XE连接成功了.>>.....>>>>")
+                dataScope.launch {
+                    delay(500)
+                    val cmd = XeBleCmd.mode2Cmd()
+                    writeData(cmd)
+                    delay(100)
+                    val cmd2 = XeBleCmd.returnCenter(true)
+                    writeData(cmd2)
+                }
             }?.fail(object : FailCallback {
                 override fun onRequestFailed(device: BluetoothDevice, status: Int) {
                     Log.i("fuck", "XE连接失败了.>>.....>>>> $status")
