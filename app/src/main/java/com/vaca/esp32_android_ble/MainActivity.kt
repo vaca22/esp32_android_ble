@@ -19,6 +19,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    fun checkPermission(array:Array<String>):Boolean{
+        for (i in array){
+            if(ContextCompat.checkSelfPermission(
+                    this,
+                    i
+                ) != PackageManager.PERMISSION_GRANTED
+            ){
+                return false
+            }
+        }
+        return true
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,23 +43,23 @@ class MainActivity : AppCompatActivity() {
             val yes=it.get(Manifest.permission.ACCESS_FINE_LOCATION)!!
             FirstFragment.haveBlePrepare.postValue(yes)
         }
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.BLUETOOTH_SCAN
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestVoicePermission.launch( arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.BLUETOOTH_SCAN,
-                Manifest.permission.BLUETOOTH_CONNECT,
-                Manifest.permission.BLUETOOTH_ADMIN,
-                Manifest.permission.BLUETOOTH,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                Manifest.permission.BLUETOOTH_ADVERTISE,
-                Manifest.permission.BLUETOOTH_PRIVILEGED,
+        val pArray=arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT,
+            Manifest.permission.BLUETOOTH_ADMIN,
+            Manifest.permission.BLUETOOTH,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+            Manifest.permission.BLUETOOTH_ADVERTISE,
+            Manifest.permission.BLUETOOTH_PRIVILEGED,
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO,
 
-            ))
+            )
+        if (!checkPermission(pArray)
+        ) {
+            requestVoicePermission.launch(pArray )
         }else{
             FirstFragment.haveBlePrepare.postValue(true)
         }
