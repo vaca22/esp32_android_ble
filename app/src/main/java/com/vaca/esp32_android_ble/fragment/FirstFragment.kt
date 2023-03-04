@@ -24,6 +24,7 @@ import com.vaca.esp32_android_ble.bean.BleBean
 import com.vaca.esp32_android_ble.esp32ble.Esp32BleScanManager
 import com.vaca.esp32_android_ble.adapter.BleViewAdapter
 import com.vaca.esp32_android_ble.R
+import com.vaca.esp32_android_ble.control.FlashlightProvider
 import com.vaca.esp32_android_ble.esp32ble.BleServer
 import com.vaca.esp32_android_ble.databinding.FragmentFirstBinding
 import com.vaca.esp32_android_ble.esp32ble.Esp32BleDataManager
@@ -126,6 +127,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         Timer().schedule(carRunTask, Date(),50)
 
         haveBlePrepare.observe(viewLifecycleOwner){
@@ -317,6 +319,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     lateinit var audioSource: AudioSource
     lateinit var mAudioManager: AudioManager
     private var isOffer = false
+    lateinit var captureAndroid:FlashlightCapturer1
     var mPeer: Peer? = null
     fun initWebrtc(){
         mEglBase = EglBase.create()
@@ -362,7 +365,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
 
 
         //创建需要传入设备的名称
-        val captureAndroid = createVideoCapture(requireContext())!!
+        captureAndroid = createVideoCapture(requireContext())!!
         val videoSource =
             mPeerConnectionFactory.createVideoSource(captureAndroid.isScreencast())
 
@@ -434,8 +437,37 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     }
 
     inner class Peer : PeerConnection.Observer, SdpObserver, DataChannel.Observer {
+
+        val noteObserver=object: DataChannel.Observer{
+            override fun onBufferedAmountChange(p0: Long) {
+
+            }
+
+            override fun onStateChange() {
+
+            }
+
+            override fun onMessage(p0: DataChannel.Buffer?) {
+                val data: ByteBuffer = p0?.data ?: return
+                val bytes = ByteArray(data.capacity())
+                data.get(bytes)
+                val info=String(bytes)
+                if(info=="lightOn"){
+                    Log.e("gaga","n1")
+                    captureAndroid.turnOnFlashlight()
+                }else if(info=="lightOff"){
+                    Log.e("gaga","n2")
+
+                    captureAndroid.turnOffFlashlight()
+                }
+            }
+
+        }
+
+
         var peerConnection: PeerConnection
         lateinit var controlCarDataChannel: DataChannel
+        lateinit var noteCarChannel: DataChannel
         lateinit var carInfoDataChannel: DataChannel
         init {
             sdpConstraints = MediaConstraints()
@@ -458,6 +490,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
             val init = DataChannel.Init()
             init.negotiated = false
             init.ordered = false
+
             val carInfoDataformat = DataChannel.Init()
             carInfoDataformat.negotiated = false
             carInfoDataformat.ordered = true
@@ -500,7 +533,12 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
         override fun onRemoveStream(mediaStream: MediaStream) {}
         override fun onDataChannel(dataChannel: DataChannel) {
             Log.e("fuck","onDataChannel")
-            dataChannel.registerObserver(this)
+            if(dataChannel.label()=="fuck"){
+                dataChannel.registerObserver(this)
+            }else if(dataChannel.label()=="fuck2"){
+                dataChannel.registerObserver(noteObserver)
+            }
+
         }
         override fun onRenegotiationNeeded() {}
         override fun onAddTrack(rtpReceiver: RtpReceiver, mediaStreams: Array<MediaStream>) {}
@@ -546,30 +584,21 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
 
 
     }
-    private fun createVideoCapture(context: Context): CameraVideoCapturer? {
+    private fun createVideoCapture(context: Context): FlashlightCapturer1? {
         val enumerator: CameraEnumerator
-        enumerator = if (Camera2Enumerator.isSupported(context)) {
-            Camera2Enumerator(context)
-        } else {
-            Camera1Enumerator(true)
-        }
+        enumerator =
+            FlashlightCameraNumerator1()
+
         val deviceNames = enumerator.deviceNames
         for (deviceName in deviceNames) {
             if (enumerator.isBackFacing(deviceName)) {
-                val videoCapturer = enumerator.createCapturer(deviceName, null)
+                val videoCapturer = enumerator.createCapturer(deviceName, null) as FlashlightCapturer1
                 if (videoCapturer != null) {
                     return videoCapturer
                 }
             }
         }
-        for (deviceName in deviceNames) {
-            if (!enumerator.isFrontFacing(deviceName)) {
-                val videoCapturer = enumerator.createCapturer(deviceName, null)
-                if (videoCapturer != null) {
-                    return videoCapturer
-                }
-            }
-        }
+
         return null
     }
 }
