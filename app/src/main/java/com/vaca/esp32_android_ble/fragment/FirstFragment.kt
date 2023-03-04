@@ -177,7 +177,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
                 val tAngle = -angle+90
                 val x = (power * Math.cos(Math.toRadians(tAngle.toDouble()))).toInt()
                 val y = (power * Math.sin(Math.toRadians(tAngle.toDouble()))).toInt()
-                channel1=(1000+y*1.5).toInt()
+                channel1=(1000+y*2).toInt()
             }
         }, 100)
 
