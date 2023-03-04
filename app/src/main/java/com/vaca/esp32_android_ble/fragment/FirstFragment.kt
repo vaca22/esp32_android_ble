@@ -573,7 +573,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
             data.get(bytes)
 //            Log.e("fuck",String(bytes))
             if(bytes.size==4){
-                channel1=(bytes[0].toInt()*1.7+1000).toInt()
+                channel1=(bytes[0].toInt()*2+1000).toInt()
                 channel2=bytes[1].toInt()*5+1000
                 val x=bytes[2].toInt()
                 val y=bytes[3].toInt()
