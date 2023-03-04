@@ -249,7 +249,6 @@ public class FlashlightCameraSession implements CameraSession {
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, new Range(FlashlightCameraSession.this.captureFormat.framerate.min / FlashlightCameraSession.this.fpsUnitFactor, FlashlightCameraSession.this.captureFormat.framerate.max / FlashlightCameraSession.this.fpsUnitFactor));
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, 1);
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
-                captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH);
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
                 this.chooseStabilizationMode(captureRequestBuilder);
                 this.chooseFocusMode(captureRequestBuilder);
