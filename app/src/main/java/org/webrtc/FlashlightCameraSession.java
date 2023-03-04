@@ -128,7 +128,7 @@ public class FlashlightCameraSession implements CameraSession {
                    captureRequestBuilder2.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
                } else {
                    captureRequestBuilder2.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF);
-                   captureRequestBuilder2.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_OFF);
+                   captureRequestBuilder2.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
                }
            captureSession.setRepeatingRequest(captureRequestBuilder2.build(), null, null);
 
