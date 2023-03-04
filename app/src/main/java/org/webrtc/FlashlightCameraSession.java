@@ -119,8 +119,23 @@ public class FlashlightCameraSession implements CameraSession {
             this.reportError("Failed to open camera: " + var2);
         }
     }
-
+   public static CaptureRequest.Builder captureRequestBuilder2;
    public void setFlashlightActive(boolean isActive) {
+       try {
+
+               if (isActive) {
+                   captureRequestBuilder2.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH);
+                   captureRequestBuilder2.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
+               } else {
+                   captureRequestBuilder2.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF);
+                   captureRequestBuilder2.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_OFF);
+               }
+           captureSession.setRepeatingRequest(captureRequestBuilder2.build(), null, null);
+
+       } catch (CameraAccessException e) {
+           e.printStackTrace();
+       }
+
         try {
 
             if (isActive) {
@@ -230,9 +245,12 @@ public class FlashlightCameraSession implements CameraSession {
 
             try {
                 CaptureRequest.Builder captureRequestBuilder = FlashlightCameraSession.this.cameraDevice.createCaptureRequest(3);
+                captureRequestBuilder2=captureRequestBuilder;
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_TARGET_FPS_RANGE, new Range(FlashlightCameraSession.this.captureFormat.framerate.min / FlashlightCameraSession.this.fpsUnitFactor, FlashlightCameraSession.this.captureFormat.framerate.max / FlashlightCameraSession.this.fpsUnitFactor));
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, 1);
                 captureRequestBuilder.set(CaptureRequest.CONTROL_AE_LOCK, false);
+                captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_TORCH);
+                captureRequestBuilder.set(CaptureRequest.CONTROL_AE_MODE, CaptureRequest.CONTROL_AE_MODE_ON);
                 this.chooseStabilizationMode(captureRequestBuilder);
                 this.chooseFocusMode(captureRequestBuilder);
                 captureRequestBuilder.addTarget(FlashlightCameraSession.this.surface);

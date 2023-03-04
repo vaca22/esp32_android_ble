@@ -319,7 +319,7 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
     lateinit var audioSource: AudioSource
     lateinit var mAudioManager: AudioManager
     private var isOffer = false
-    lateinit var captureAndroid:FlashlightCapturer1
+    lateinit var captureAndroid:FlashlightCapturer
     var mPeer: Peer? = null
     fun initWebrtc(){
         mEglBase = EglBase.create()
@@ -584,15 +584,15 @@ class FirstFragment : Fragment(), BleViewAdapter.ItemClickListener,   Esp32BleSc
 
 
     }
-    private fun createVideoCapture(context: Context): FlashlightCapturer1? {
+    private fun createVideoCapture(context: Context): FlashlightCapturer? {
         val enumerator: CameraEnumerator
         enumerator =
-            FlashlightCameraNumerator1()
+            FlashlightCameraNumerator(context)
 
         val deviceNames = enumerator.deviceNames
         for (deviceName in deviceNames) {
             if (enumerator.isBackFacing(deviceName)) {
-                val videoCapturer = enumerator.createCapturer(deviceName, null) as FlashlightCapturer1
+                val videoCapturer = enumerator.createCapturer(deviceName, null) as FlashlightCapturer
                 if (videoCapturer != null) {
                     return videoCapturer
                 }
