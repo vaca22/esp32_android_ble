@@ -61,39 +61,11 @@ class SecondFragment : Fragment() {
 
     inner class RtDataTask() : TimerTask() {
         override fun run() {
-            val bb=ByteArray(12){
-                0x32.toByte()
-            }
-
-            var cc=binding.seekBar1.progress;
-            Log.e("fuck",cc.toString())
-            bb[0]=(cc%256).toByte()
-            bb[1]=(cc/256).toByte()
-
-            cc=binding.seekBar2.progress;
-            bb[2]=(cc%256).toByte()
-            bb[3]=(cc/256).toByte()
-
-
-            cc=binding.seekBar3.progress;
-            bb[4]=(cc%256).toByte()
-            bb[5]=(cc/256).toByte()
-
-
-            cc=binding.seekBar4.progress;
-            bb[6]=(cc%256).toByte()
-            bb[7]=(cc/256).toByte()
-
-
-            cc=binding.seekBar5.progress;
-            bb[8]=(cc%256).toByte()
-            bb[9]=(cc/256).toByte()
-
-            cc=binding.seekBar5.progress;
-            bb[10]=(cc%256).toByte()
-            bb[11]=(cc/256).toByte()
-
-            BleServer.worker.sendCmd(bb)
+            val bb=JSONObject()
+            bb.put("ssid","vaca");
+            bb.put("password","12345678");
+            bb.put("phone","wfidosjufoidsuiofsdfdsfsdfudsoifu")
+            BleServer.worker.sendCmd(bb.toString().toByteArray())
         }
     }
 }
