@@ -41,7 +41,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
-        Timer().schedule(xx, Date(),50)
+        Timer().schedule(xx, Date(),500)
         return binding.root
 
     }
